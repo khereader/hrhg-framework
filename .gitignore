@@ -1,0 +1,16 @@
+*/target
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Dev tool fields
+# idea
+.idea
+*.iml
+*.ipr
+*.iws
+
+logs
+.DS_Store
