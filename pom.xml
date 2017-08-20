@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.hrhg</groupId>
+    <artifactId>hrhg-framework</artifactId>
+    <version>2.0.0</version>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>好人好股框架</description>
+    <!-- 工程子模块 -->
+    <modules>
+        <module>hrhg-commons</module>
+    </modules>
+
+    <!-- 属性定义 -->
+    <properties>
+        <!-- 环境配置：dev/test/release -->
+        <env>dev</env>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.test.skip>true</maven.test.skip>
+
+        <!-- 私服主机 -->
+        <!--<maven_host>http://localhost:8081</maven_host>-->
+        <maven_host>http://repo.integrity.com.cn</maven_host>
+
+        <!-- Maven编译依赖组件版本 -->
+        <jdk_version>1.8</jdk_version>
+        <!-- maven编译插件 -->
+        <maven_javadoc_plugin_version>2.10.4</maven_javadoc_plugin_version>
+        <maven_compiler_plugin_version>3.6.1</maven_compiler_plugin_version>
+        <maven_dependency_plugin_version>3.0.1</maven_dependency_plugin_version>
+        <maven_jar_plugin_version>3.0.2</maven_jar_plugin_version>
+        <maven_war_plugin_version>3.1.0</maven_war_plugin_version>
+        <maven_deploy_plugin_version>2.8.2</maven_deploy_plugin_version>
+        <maven_install_plugin_version>2.5.2</maven_install_plugin_version>
+        <maven_assembly_plugin_version>3.0.0</maven_assembly_plugin_version>
+        <!-- 注解插件 -->
+        <lombok_plugin_version>1.16.16.0</lombok_plugin_version>
+
+        <!-- 通用依赖包 -->
+        <!-- Java基础依赖库 -->
+        <javassist_version>3.21.0-GA</javassist_version>
+        <!-- javax工具 -->
+        <servletapi_version>3.1.0</servletapi_version>
+        <cacheapi_version>1.0.0</cacheapi_version>
+        <rsapi_version>2.1-m07</rsapi_version>
+        <annotationapi_version>1.3</annotationapi_version>
+        <!-- 代码注解工具 -->
+        <lombok_version>1.16.16</lombok_version>
+        <!-- API文档生成工具 -->
+        <swagger_version>1.5.15</swagger_version>
+        <reflections_version>0.9.11</reflections_version>
+        <!-- 连接池管理库 -->
+        <commons_pool2_version>2.4.2</commons_pool2_version>
+        <commons_dbcp2_version>2.1.1</commons_dbcp2_version>
+        <!-- 日志管理库 -->
+        <commons_lang3_version>3.5</commons_lang3_version>
+        <commons_logging_version>1.2</commons_logging_version>
+        <slf4j_version>1.7.25</slf4j_version>
+        <logback_version>1.2.3</logback_version>
+        <logback_ext_spring_version>0.1.4</logback_ext_spring_version>
+        <!-- SPRING框架 -->
+        <spring_bom_version>4.3.9.RELEASE</spring_bom_version>
+        <!-- 定时任务管理工具库 -->
+        <quartz_version>2.3.0</quartz_version>
+        <!-- 服务器容器 -->
+        <netty_version>3.10.6.Final</netty_version>
+        <tomcatembed_version>8.5.15</tomcatembed_version>
+        <tomcatembed_logging_juli_version>8.5.2</tomcatembed_logging_juli_version>
+        <!-- ZK注册中心 -->
+        <zookeeper_version>3.4.10</zookeeper_version>
+        <zkclient_version>0.10</zkclient_version>
+        <!-- Apache核心组件库 -->
+        <minacore_version>2.0.16</minacore_version>
+        <libthrift_version>0.10.0</libthrift_version>
+        <bsfapi_version>3.1</bsfapi_version>
+        <cxf_version>3.1.11</cxf_version>
+        <!-- 内存优化管理框架库 -->
+        <grizzlycore_version>2.3.31</grizzlycore_version>
+        <!-- 序列化工具库 -->
+        <!-- kryo原生序列化 -->
+        <kryo_version>2.24.0</kryo_version>
+        <kryoserializers_version>0.41</kryoserializers_version>
+        <!-- hessian原生序列化 -->
+        <hessian_version>4.0.7</hessian_version>
+        <!-- XML序列化 -->
+        <xstream_version>1.4.10</xstream_version>
+        <!-- Json解析工具库 -->
+        <jackson_version>2.8.8</jackson_version>
+        <!-- Dubbo框架 -->
+        <dubbo_version>3.3.3</dubbo_version>
+        <!-- HTTP工具 -->
+        <!-- HTTP组件核心库 -->
+        <httpcore_version>4.4.6</httpcore_version>
+        <!-- HTTP组件客户端库 -->
+        <httpclient_version>4.5.3</httpclient_version>
+        <!-- 数据库管理库 -->
+        <!-- MySQL连接驱动库 -->
+        <mysqlconnector_version>6.0.6</mysqlconnector_version>
+        <!-- 数据库连接池管理库 -->
+        <druid_version>1.0.31</druid_version>
+        <!-- 动态代理库 -->
+        <aspectjweaver_version>1.8.10</aspectjweaver_version>
+        <!-- Mybatis mysql -->
+        <mybatis_version>3.4.4</mybatis_version>
+        <!-- Mybatis Spring mysql -->
+        <mybatisspring_version>1.3.1</mybatisspring_version>
+        <!-- 数据有效性检查 -->
+        <validationapi_version>1.1.0.Final</validationapi_version>
+        <hibernate_validator_version>5.4.1.Final</hibernate_validator_version>
+        <!-- Redis客户端工具 -->
+        <jedis_version>2.9.0</jedis_version>
+        <!-- Microsoft Office文档读写通用工具库 -->
+        <apache_poi_version>3.16</apache_poi_version>
+        <!-- QRCode生成库 -->
+        <zxing_version>3.3.0</zxing_version>
+        <!-- 测试依赖库 -->
+        <junit_version>4.12</junit_version>
+        <easymock_version>3.4</easymock_version>
+        <easymockclassextension_version>3.2</easymockclassextension_version>
+        <jmockit_version>1.32</jmockit_version>
+        <aliyun_sdk_oss_version>2.7.0</aliyun_sdk_oss_version>
+    </properties>
+
+    <!-- 私服访问定义 -->
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>public</name>
+            <url>${maven_host}/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- 私服发布定义 -->
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>releases</name>
+            <url>${maven_host}/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>snapshots</name>
+            <url>${maven_host}/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <!-- 依赖组件管理 -->
+        <dependencies>
+            <!-- 通用依赖包 -->
+            <!-- Java基础依赖库 -->
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist_version}</version>
+            </dependency>
+            <!-- javax工具 -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servletapi_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.cache</groupId>
+                <artifactId>cache-api</artifactId>
+                <version>${cacheapi_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>javax.ws.rs-api</artifactId>
+                <version>${rsapi_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${annotationapi_version}</version>
+            </dependency>
+            <!-- 代码注解工具 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok_version}</version>
+            </dependency>
+            <!-- API文档生成工具 -->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-core</artifactId>
+                <version>${swagger_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-jaxrs</artifactId>
+                <version>${swagger_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-jersey-jaxrs</artifactId>
+                <version>${swagger_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-jersey2-jaxrs</artifactId>
+                <version>${swagger_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>${reflections_version}</version>
+            </dependency>
+            <!-- 连接池管理库 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons_pool2_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-dbcp2</artifactId>
+                <version>${commons_dbcp2_version}</version>
+            </dependency>
+            <!-- 日志管理库 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons_lang3_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons_logging_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${slf4j_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-access</artifactId>
+                <version>${logback_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.logback-extensions</groupId>
+                <artifactId>logback-ext-spring</artifactId>
+                <version>${logback_ext_spring_version}</version>
+            </dependency>
+            <!-- SPRING框架 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring_bom_version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-core</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- 定时任务管理工具库 -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz_version}</version>
+            </dependency>
+            <!-- 服务器容器 -->
+            <!-- netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty</artifactId>
+                <version>${netty_version}</version>
+            </dependency>
+            <!-- tomcat-embed -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcatembed_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-logging-juli</artifactId>
+                <version>${tomcatembed_logging_juli_version}</version>
+            </dependency>
+            <!-- ZK注册中心 -->
+            <!-- ZK核心库 -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper_version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- ZK客户端库 -->
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${zkclient_version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- Apache核心组件库 -->
+            <!-- mina -->
+            <dependency>
+                <groupId>org.apache.mina</groupId>
+                <artifactId>mina-core</artifactId>
+                <version>${minacore_version}</version>
+            </dependency>
+            <!-- thrift -->
+            <dependency>
+                <groupId>org.apache.thrift</groupId>
+                <artifactId>libthrift</artifactId>
+                <version>${libthrift_version}</version>
+            </dependency>
+            <!-- bsfapi -->
+            <dependency>
+                <groupId>org.apache.bsf</groupId>
+                <artifactId>bsf-api</artifactId>
+                <version>${bsfapi_version}</version>
+            </dependency>
+            <!-- cxf -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-simple</artifactId>
+                <version>${cxf_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf_version}</version>
+            </dependency>
+            <!-- 内存优化管理框架库 -->
+            <dependency>
+                <groupId>org.glassfish.grizzly</groupId>
+                <artifactId>grizzly-core</artifactId>
+                <version>${grizzlycore_version}</version>
+            </dependency>
+            <!-- 序列化工具库 -->
+            <!-- kryo原生序列化工具 -->
+            <dependency>
+                <groupId>com.esotericsoftware.kryo</groupId>
+                <artifactId>kryo</artifactId>
+                <version>${kryo_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.javakaffee</groupId>
+                <artifactId>kryo-serializers</artifactId>
+                <version>${kryoserializers_version}</version>
+            </dependency>
+            <!-- hessian原生序列化 -->
+            <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>hessian</artifactId>
+                <version>${hessian_version}</version>
+            </dependency>
+            <!-- XML序列化工具 -->
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream_version}</version>
+            </dependency>
+            <!-- Json序列化工具 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-json-provider</artifactId>
+                <version>${jackson_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-joda</artifactId>
+                <version>${jackson_version}</version>
+            </dependency>
+            <!-- Dubbo框架 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo_version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.logging.log4j</groupId>
+                        <artifactId>log4j-core</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo-rpc-redis</artifactId>
+                <version>${dubbo_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo-rpc-rest</artifactId>
+                <version>${dubbo_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>hessian-lite</artifactId>
+                <version>${dubbo_version}</version>
+            </dependency>
+            <!-- HTTP工具 -->
+            <!-- HTTP组件核心库 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>${httpcore_version}</version>
+            </dependency>
+            <!-- HTTP组件客户端库 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient-cache</artifactId>
+                <version>${httpclient_version}</version>
+            </dependency>
+            <!-- 数据库管理库 -->
+            <!-- MySQL连接驱动库 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysqlconnector_version}</version>
+            </dependency>
+            <!-- 数据库连接池管理库 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid_version}</version>
+            </dependency>
+            <!-- 动态代理库 -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectjweaver_version}</version>
+            </dependency>
+            <!-- Mybatis mysql -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis_version}</version>
+            </dependency>
+            <!-- Mybatis Spring mysql -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatisspring_version}</version>
+            </dependency>
+            <!-- 数据有效性检查 -->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validationapi_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate_validator_version}</version>
+            </dependency>
+            <!-- Redis客户端工具 -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis_version}</version>
+            </dependency>
+            <!-- Microsoft Office文档读写通用工具库 -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${apache_poi_version}</version>
+            </dependency>
+            <!-- QRCode生成库 -->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>${zxing_version}</version>
+            </dependency>
+            <!-- 测试库 -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit_version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${easymock_version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymockclassextension</artifactId>
+                <version>${easymockclassextension_version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jmockit</groupId>
+                <artifactId>jmockit</artifactId>
+                <version>${jmockit_version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- 阿里云OSS服务开发包 -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun_sdk_oss_version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <!-- 测试库 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+    <!-- 通用编译 -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok-maven-plugin</artifactId>
+                    <version>${lombok_plugin_version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven_javadoc_plugin_version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven_compiler_plugin_version}</version>
+                    <configuration>
+                        <fork>true</fork>
+                        <source>${jdk_version}</source>
+                        <target>${jdk_version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven_dependency_plugin_version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven_jar_plugin_version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven_war_plugin_version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven_deploy_plugin_version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven_install_plugin_version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${maven_assembly_plugin_version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
