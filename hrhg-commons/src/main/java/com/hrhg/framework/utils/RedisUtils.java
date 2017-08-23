@@ -165,6 +165,57 @@ public final class RedisUtils {
     }
 
     /**
+     * 根据key获取数据。<br>
+     *
+     * @param redisDataSource Redis数据源
+     * @param key             设置超时的Key
+     * @return 剩余时间
+     * @throws Exception 系统异常
+     */
+    @SuppressWarnings("unchecked")
+    public static String getByKey(RedisDataSource redisDataSource, String key) throws Exception {
+        if (DataUtils.isNullOrEmpty(key)) {
+            // 没有待处理的Key
+            return null;
+        }
+
+        // redis客户端对象
+        ShardedJedis shardedJedis = redisDataSource.getRedisClient();
+
+        try {
+            return shardedJedis.get(key);
+        } finally {
+            // 释放资源
+            redisDataSource.close(shardedJedis);
+        }
+    }
+
+    /**
+     * 根据key设置数据。<br>
+     *
+     * @param redisDataSource Redis数据源
+     * @param key             设置超时的Key
+     * @throws Exception 系统异常
+     */
+    @SuppressWarnings("unchecked")
+    public static void setByKey(RedisDataSource redisDataSource, String key, String value) throws Exception {
+        if (DataUtils.isNullOrEmpty(key)) {
+            // 没有待处理的Key
+            return;
+        }
+
+        // redis客户端对象
+        ShardedJedis shardedJedis = redisDataSource.getRedisClient();
+
+        try {
+            shardedJedis.set(key, value);
+        } finally {
+            // 释放资源
+            redisDataSource.close(shardedJedis);
+        }
+    }
+
+    /**
      * 获取缓存数据（普通的原子数据）。<br>
      *
      * @param redisDataSource Redis数据源

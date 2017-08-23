@@ -312,6 +312,52 @@ public final class HttpUtils {
     }
 
     /**
+     * 根据bean对象生成属性值为非空的序列参数。<br>
+     *
+     * @param paramBean bean参数
+     * @param <T>       参数类型
+     * @return 返回参数字符串
+     */
+    public static <T extends Object> String makeGetParameter(T paramBean) throws Exception {
+        if (DataUtils.isNullOrEmpty(paramBean)) {
+            // 参数结果及为空
+            return StringUtils.EMPTY_STRING;
+        }
+
+        // Bean获取map集合
+        Map<String, Object> beanMaps = BeanUtils.beanToMap(paramBean);
+
+        if (DataUtils.isNullOrEmpty(beanMaps)) {
+            // 参数结果及为空
+            return StringUtils.EMPTY_STRING;
+        }
+
+        // 名称-值对集合
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+
+        for (String key : beanMaps.keySet()) {
+            // 逐个生成名称-值对象
+            // 获取值对象
+            Object value = beanMaps.get(key);
+
+            if (null == value) {
+                // 忽略空值对象
+                continue;
+            }
+
+            // 创建基础名称-值对象
+            BasicNameValuePair basicNameValuePair = new BasicNameValuePair(key, value.toString());
+            // 添加到集合
+            nameValuePairs.add(basicNameValuePair);
+        }
+
+        // 生成Url实体对象
+        UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, StringUtils.ENCODING_UTF8);
+        // 生成get请求参数对
+        return EntityUtils.toString(urlEncodedFormEntity, StringUtils.ENCODING_UTF8);
+    }
+
+    /**
      * 获取自定义HTTP客户端。<br>
      *
      * @return 客户端
@@ -551,47 +597,6 @@ public final class HttpUtils {
         } finally {
             response.close();
         }
-    }
-
-    /**
-     * 根据bean对象生成属性值为非空的序列参数。<br>
-     *
-     * @param paramBean bean参数
-     * @param <T>       参数类型
-     * @return 返回参数字符串
-     */
-    private static <T extends Object> String makeGetParameter(T paramBean) throws Exception {
-        // Bean获取map集合
-        Map<String, Object> beanMaps = BeanUtils.beanToMap(paramBean);
-
-        if (DataUtils.isNullOrEmpty(beanMaps)) {
-            // 参数结果及为空
-            return StringUtils.EMPTY_STRING;
-        }
-
-        // 名称-值对集合
-        List<NameValuePair> nameValuePairs = new ArrayList<>();
-
-        for (String key : beanMaps.keySet()) {
-            // 逐个生成名称-值对象
-            // 获取值对象
-            Object value = beanMaps.get(key);
-
-            if (null == value) {
-                // 忽略空值对象
-                continue;
-            }
-
-            // 创建基础名称-值对象
-            BasicNameValuePair basicNameValuePair = new BasicNameValuePair(key, value.toString());
-            // 添加到集合
-            nameValuePairs.add(basicNameValuePair);
-        }
-
-        // 生成Url实体对象
-        UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, StringUtils.ENCODING_UTF8);
-        // 生成get请求参数对
-        return EntityUtils.toString(urlEncodedFormEntity, StringUtils.ENCODING_UTF8);
     }
 
     /**
