@@ -15,7 +15,7 @@
 
     <!-- 属性定义 -->
     <properties>
-        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.deploy.skip>false</maven.deploy.skip>
     </properties>
 
     <!-- 依赖组件 -->
