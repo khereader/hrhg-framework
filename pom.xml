@@ -18,7 +18,7 @@
         <!-- 环境配置：dev/test/release -->
         <env>dev</env>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.deploy.skip>false</maven.deploy.skip>
         <maven.test.skip>true</maven.test.skip>
 
         <!-- 私服主机 -->
