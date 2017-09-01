@@ -526,6 +526,21 @@ public final class StringUtils {
     }
 
     /**
+     * 隐藏手机中间4为信息。<br>
+     *
+     * @param phone 手机号码
+     * @return 隐藏号码
+     */
+    public static String hidePhoneMiddle(String phone) {
+        if (isEmpty(phone)) {
+            return phone;
+        }
+
+        // 正则替换隐藏字符
+        return phone.replaceAll(PATTERN_PHONE_TEXT, PATTERN_PHONE_REPLACE);
+    }
+
+    /**
      * 校验是否为手机号
      *
      * @param param
