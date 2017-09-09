@@ -11,6 +11,8 @@ import com.aliyun.mns.model.MessageAttributes;
 import com.aliyun.mns.model.RawTopicMessage;
 import com.aliyun.mns.model.TopicMessage;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +36,8 @@ public final class MessageUtils {
      * @param topicName       主题名
      * @param freeSignName    短信签名
      * @param templateCode    短信消息模板ID
-     * @param phones          短信发送手机号集合
      * @param paramBean       短信模板参数bean
+     * @param phones          短信发送手机号集合
      * @return 返回消息ID
      * @throws Exception 异常信息
      */
@@ -45,10 +47,15 @@ public final class MessageUtils {
                                         String topicName,
                                         String freeSignName,
                                         String templateCode,
-                                        List<String> phones,
-                                        Object paramBean) throws Exception {
+                                        Object paramBean,
+                                        String... phones) throws Exception {
+        // 手机号集合
+        List<String> phoneList = new ArrayList<>();
+        // 手机号非空
+        Collections.addAll(phoneList, phones);
+
         return sendSMSMessage(accessKeyId, accessKeySecret, accountEndpoint, topicName,
-                freeSignName, templateCode, phones, BeanUtils.beanToMap(paramBean));
+                freeSignName, templateCode, BeanUtils.beanToMap(paramBean), phoneList);
     }
 
     /**
@@ -71,8 +78,8 @@ public final class MessageUtils {
                                         String topicName,
                                         String freeSignName,
                                         String templateCode,
-                                        List<String> phones,
-                                        Map<String, String> params) throws Exception {
+                                        Map<String, Object> params,
+                                        List<String> phones) throws Exception {
         if (StringUtils.isEmpty(accessKeyId) || StringUtils.isEmpty(accessKeySecret) ||
                 StringUtils.isEmpty(accountEndpoint) || StringUtils.isEmpty(topicName) ||
                 StringUtils.isEmpty(freeSignName) || StringUtils.isEmpty(templateCode) ||
@@ -115,7 +122,9 @@ public final class MessageUtils {
             // 消息模版参数
             for (String key : params.keySet()) {
                 // 逐个设置参数
-                smsReceiverParams.setParam(key, params.get(key));
+                Object value = params.get(key);
+                // 设置参数
+                smsReceiverParams.setParam(key, null == value ? null : value.toString());
             }
         }
 
