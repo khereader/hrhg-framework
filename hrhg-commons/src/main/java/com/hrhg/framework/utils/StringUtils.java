@@ -101,6 +101,14 @@ public final class StringUtils {
      * 正则匹配模式_Key&Value数据对
      */
     private static final Pattern PATTERN_KVP = Pattern.compile(PATTERN_KVP_TEXT);
+    /**
+     * 随机数默认位数
+     */
+    private static final int RANDOM_BIT_NUM = 4;
+    /**
+     * 随机数格式
+     */
+    private static final String RANDOM_CODE_FORMAT = "%%0%dd";
 
     /**
      * 私有构造函数。<br>
@@ -564,5 +572,34 @@ public final class StringUtils {
             return false;
         }
         return Pattern.matches(PATTERN_IS_EMAIL_TEXT, param);
+    }
+
+    /**
+     * 生成指定位数的随机数字符串。<br>
+     *
+     * @return 生成随机数字符串
+     */
+    public static String makeBitRandom() {
+        return makeBitRandom(RANDOM_BIT_NUM);
+    }
+
+    /**
+     * 生成指定位数的随机数字符串。<br>
+     *
+     * @param bit 随机数位数
+     * @return 生成随机数字符串
+     */
+    public static String makeBitRandom(int bit) {
+        if (bit <= 0) {
+            // 位数不正确
+            return EMPTY_STRING;
+        }
+
+        // 生成指定位数随机数字
+        int code = (int) (Math.pow(10, bit) * Math.random());
+        // 指定位数随机数格式
+        String fromat = String.format(RANDOM_CODE_FORMAT, bit);
+        // 生成指定位数随机数字符串
+        return String.format(fromat, code);
     }
 }
