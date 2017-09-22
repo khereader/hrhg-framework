@@ -26,11 +26,11 @@ public class ServiceUtils {
      * @param clazz 服务类型
      * @return 服务Bean8
      */
-    public static BaseBLogic getServiceBean(Class<?> clazz) {
+    public static <T extends BaseBLogic> T getServiceBean(Class<?> clazz) {
         // 获取Spring中的Bean
         ApplicationContext context = ServiceBean.getSpringContext();
         // 获取bean
-        BaseBLogic baseBLogic = (BaseBLogic) context.getBean(clazz);
+        T baseBLogic = (T) context.getBean(clazz);
         return baseBLogic;
     }
 }
