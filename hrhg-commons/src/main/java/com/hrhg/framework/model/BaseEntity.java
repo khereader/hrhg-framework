@@ -23,7 +23,7 @@ public class BaseEntity {
     /**
      * 创建时间
      */
-    private Date ctime;
+    private Date createTime;
     /**
      * 更新者
      */
@@ -31,7 +31,7 @@ public class BaseEntity {
     /**
      * 更新时间
      */
-    private Date mtime;
+    private Date updateTime;
 
     /**
      * 获取删除标记。<br>
@@ -74,17 +74,17 @@ public class BaseEntity {
      *
      * @return 创建时间
      */
-    public Date getCtime() {
-        return ctime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
     /**
      * 设置创建时间。<br>
      *
-     * @param ctime 创建时间
+     * @param createTime 创建时间
      */
-    public void setCtime(Date ctime) {
-        this.ctime = ctime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     /**
@@ -110,16 +110,16 @@ public class BaseEntity {
      *
      * @return 更新时间
      */
-    public Date getMtime() {
-        return mtime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
     /**
      *  设置更新时间。<br>
      *
-     * @param mtime 更新时间
+     * @param updateTime 更新时间
      */
-    public void setMtime(Date mtime) {
-        this.mtime = mtime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
