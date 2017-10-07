@@ -2,15 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.hrhg</groupId>
+    <groupId>com.integrity</groupId>
     <artifactId>hrhg-framework</artifactId>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>好人好股框架</description>
     <!-- 工程子模块 -->
     <modules>
         <module>hrhg-commons</module>
+        <module>hrhg-api</module>
+        <module>hrhg-web</module>
+        <module>hrhg-srv</module>
+        <module>hrhg-batch</module>
     </modules>
 
     <!-- 属性定义 -->

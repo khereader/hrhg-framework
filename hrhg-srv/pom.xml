@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+          http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.integrity</groupId>
+        <artifactId>hrhg-framework</artifactId>
+        <version>2.2.0</version>
+    </parent>
+    <artifactId>hrhg-srv</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
+    <description>好人好股通用SRV</description>
+
+    <!-- 属性定义 -->
+    <properties>
+        <maven.deploy.skip>false</maven.deploy.skip>
+    </properties>
+
+    <!-- 依赖组件 -->
+    <dependencies>
+        <!-- 好人好股框架工具 -->
+        <dependency>
+            <groupId>com.integrity</groupId>
+            <artifactId>hrhg-commons</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.integrity</groupId>
+            <artifactId>hrhg-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+</project>

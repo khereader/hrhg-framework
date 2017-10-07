@@ -5,12 +5,13 @@
           http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.hrhg</groupId>
+        <groupId>com.integrity</groupId>
         <artifactId>hrhg-framework</artifactId>
-        <version>2.1.0</version>
+        <version>2.2.0</version>
     </parent>
     <artifactId>hrhg-commons</artifactId>
     <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
     <description>好人好股框架通用工具</description>
 
     <!-- 属性定义 -->
