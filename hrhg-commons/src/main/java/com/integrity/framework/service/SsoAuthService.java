@@ -3,8 +3,8 @@
  */
 package com.integrity.framework.service;
 
-import com.integrity.framework.api.bean.SsoReq;
-import com.integrity.framework.api.bean.SsoResp;
+import com.integrity.framework.api.bean.SsoAuthReq;
+import com.integrity.framework.api.bean.SsoAuthResp;
 import com.integrity.framework.exception.RespException;
 
 /**
@@ -13,7 +13,7 @@ import com.integrity.framework.exception.RespException;
  * @author 李海军
  * @since 1.0.0
  */
-public interface SsoService {
+public interface SsoAuthService {
     /**
      * 单点登录鉴权服务接口。<br>
      *
@@ -21,5 +21,5 @@ public interface SsoService {
      * @return 单点登录鉴权响应参数
      * @throws RespException 业务逻辑异常
      */
-    SsoResp sso(SsoReq req) throws RespException;
+    SsoAuthResp sso(SsoAuthReq req) throws RespException;
 }
