@@ -9,16 +9,17 @@ import com.integrity.framework.api.bean.HeadReq;
 import com.integrity.framework.api.bean.HeadResp;
 import com.integrity.framework.api.bean.OperateBizzReq;
 import com.integrity.framework.api.bean.OperateBizzResp;
-import com.integrity.framework.api.bean.SSOReq;
-import com.integrity.framework.api.bean.SSOResp;
+import com.integrity.framework.api.bean.SsoReq;
+import com.integrity.framework.api.bean.SsoResp;
 import com.integrity.framework.api.code.ApiType;
 import com.integrity.framework.api.code.CodePath;
 import com.integrity.framework.api.code.OpBizz;
 import com.integrity.framework.api.code.SysCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.exception.RespException;
-import com.integrity.framework.service.SSOService;
+import com.integrity.framework.service.SsoService;
 import com.integrity.framework.srv.blogic.BaseBLogic;
+import com.integrity.framework.utils.BeanUtils;
 import com.integrity.framework.utils.ClazzUtils;
 import com.integrity.framework.utils.DataUtils;
 import com.integrity.framework.utils.LogUtils;
@@ -60,7 +61,7 @@ public abstract class BaseServiceImpl {
      * @param req 更新请求参数
      * @return 统一鉴权服务
      */
-    protected abstract SSOService ssoService(SSOReq req);
+    protected abstract SsoService ssoService(SsoReq req);
 
     /**
      * 删除业务处理。<br>
@@ -273,15 +274,19 @@ public abstract class BaseServiceImpl {
         }
 
         // 请求参数
-        SSOReq req = new SSOReq();
+        SsoReq req = new SsoReq();
+
+        try {
+            // 复制原请求属性
+            BeanUtils.copyBeanValue(reqHead, req.getHead());
+        } catch (Exception e) {
+            throw new BLogicException(SysCode.Message.E_NO_PROPERTY);
+        }
+
         // 获取鉴权服务
-        SSOService ssoService = ssoService(req);
-        // 应用ID
-        req.getHead().setAppId(appType.getCode());
-        // 访问时间
-        req.getHead().setTime(reqHead.getTime());
+        SsoService ssoService = ssoService(req);
         // 鉴权服务
-        SSOResp resp = ssoService.sso(req);
+        SsoResp resp = ssoService.sso(req);
 
         if (DataUtils.isNullOrEmpty(resp) || StringUtils.isEmpty(resp.getHead().getToken())) {
             // 用户鉴权失败

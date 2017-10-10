@@ -14,5 +14,5 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SSOBodyReq extends BodyReq {
+public class SsoBodyReq extends BodyReq {
 }

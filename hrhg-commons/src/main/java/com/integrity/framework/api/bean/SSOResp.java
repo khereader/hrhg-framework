@@ -14,12 +14,12 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SSOResp extends BodyBaseResp<SSOBodyResp> {
+public class SsoResp extends BodyBaseResp<SsoBodyResp> {
     /**
      * 创建消息体。<br>
      */
     @Override
     protected void createBody() {
-        this.body = new SSOBodyResp();
+        this.body = new SsoBodyResp();
     }
 }

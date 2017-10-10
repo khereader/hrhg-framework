@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SSOBodyResp extends BodyResp {
+public class SsoBodyResp extends BodyResp {
     /**
      * 用户ID
      */
