@@ -9,15 +9,15 @@ import com.integrity.framework.api.bean.HeadReq;
 import com.integrity.framework.api.bean.HeadResp;
 import com.integrity.framework.api.bean.OperateBizzReq;
 import com.integrity.framework.api.bean.OperateBizzResp;
-import com.integrity.framework.api.bean.SsoAuthReq;
-import com.integrity.framework.api.bean.SsoAuthResp;
+import com.integrity.framework.api.bean.SsoReq;
+import com.integrity.framework.api.bean.SsoResp;
 import com.integrity.framework.api.code.ApiType;
 import com.integrity.framework.api.code.CodePath;
 import com.integrity.framework.api.code.OpBizz;
 import com.integrity.framework.api.code.SysCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.exception.RespException;
-import com.integrity.framework.service.SsoAuthService;
+import com.integrity.framework.service.SsoService;
 import com.integrity.framework.srv.blogic.BaseBLogic;
 import com.integrity.framework.utils.BeanUtils;
 import com.integrity.framework.utils.ClazzUtils;
@@ -61,7 +61,7 @@ public abstract class BaseServiceImpl {
      * @param req 更新请求参数
      * @return 统一鉴权服务
      */
-    protected abstract SsoAuthService ssoService(SsoAuthReq req);
+    protected abstract SsoService ssoService(SsoReq req);
 
     /**
      * 删除业务处理。<br>
@@ -274,7 +274,7 @@ public abstract class BaseServiceImpl {
         }
 
         // 请求参数
-        SsoAuthReq req = new SsoAuthReq();
+        SsoReq req = new SsoReq();
 
         try {
             // 复制原请求属性
@@ -284,9 +284,9 @@ public abstract class BaseServiceImpl {
         }
 
         // 获取鉴权服务
-        SsoAuthService ssoService = ssoService(req);
+        SsoService ssoService = ssoService(req);
         // 鉴权服务
-        SsoAuthResp resp = ssoService.sso(req);
+        SsoResp resp = ssoService.sso(req);
 
         if (DataUtils.isNullOrEmpty(resp) || StringUtils.isEmpty(resp.getHead().getToken())) {
             // 用户鉴权失败
