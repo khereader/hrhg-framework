@@ -5,6 +5,7 @@ package com.integrity.framework.srv.blogic;
 
 import com.integrity.framework.api.bean.BodyReq;
 import com.integrity.framework.api.bean.BodyResp;
+import com.integrity.framework.api.code.CodePath;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +23,17 @@ public abstract class SimplePageBLogic<P extends BodyReq, R extends BodyResp>
      * 登录用户ID
      */
     protected String uidLogin;
+
+    /**
+     * 更新鉴权信息。<br>
+     *
+     * @param uid      用户ID
+     * @param codePath 编码路径
+     */
+    @Override
+    public void refreshAuthInfo(String uid, CodePath codePath) {
+        this.uidLogin = uid;
+    }
 
     /**
      * 获取分组字段信息。<br>

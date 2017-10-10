@@ -3,6 +3,7 @@
  */
 package com.integrity.framework.srv.blogic;
 
+import com.integrity.framework.api.code.CodePath;
 import com.integrity.framework.api.code.SysCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.utils.DataUtils;
@@ -39,6 +40,16 @@ public abstract class AbstractHttpBLogic<P extends Object, R extends Object>
      * @Exception 系统异常
      */
     protected abstract R useHttpTools(P param) throws Exception;
+
+    /**
+     * 更新鉴权信息。<br>
+     *
+     * @param uid      用户ID
+     * @param codePath 编码路径
+     */
+    @Override
+    public void refreshAuthInfo(String uid, CodePath codePath) {
+    }
 
     /**
      * 业务执行接口。<br>

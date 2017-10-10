@@ -46,5 +46,5 @@ public interface CodeType {
      *
      * @return 根编码
      */
-    CodePath getRoot();
+    String getRootCode();
 }

@@ -18,7 +18,6 @@ import com.integrity.framework.api.code.SysCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.exception.RespException;
 import com.integrity.framework.service.SSOService;
-import com.integrity.framework.srv.blogic.AopPageBLogic;
 import com.integrity.framework.srv.blogic.BaseBLogic;
 import com.integrity.framework.utils.ClazzUtils;
 import com.integrity.framework.utils.DataUtils;
@@ -125,11 +124,8 @@ public abstract class BaseServiceImpl {
             CodePath codePath = refreshReqCode((HeadReq) req.getHead());
             // 登陆用户ID
             String uidLogin = checkAuthAndRefreshToken((HeadReq) req.getHead());
-
-            // 业务逻辑设置CodePath
-            ((AopPageBLogic<?,?>) blogic).setBizzCode(codePath);
-            // 设置登陆用户ID
-            ((AopPageBLogic<?,?>) blogic).setUidLogin(uidLogin);
+            // 更新业务鉴权信息
+            blogic.refreshAuthInfo(uidLogin, codePath);
 
             // 业务逻辑处理
             R resp = (R) blogic.execute(req);

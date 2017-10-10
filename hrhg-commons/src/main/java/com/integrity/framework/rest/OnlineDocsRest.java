@@ -6,7 +6,6 @@ package com.integrity.framework.rest;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
 import com.integrity.framework.api.code.DocsCode;
-import com.integrity.framework.api.code.SysRoot;
 import com.integrity.framework.ext.filter.TraceFilter;
 import com.integrity.framework.service.OnlineDocsServiceRest;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,7 +30,7 @@ import javax.ws.rs.core.UriInfo;
  * @author 李海军
  * @since 1.0.0
  */
-@Path(SysRoot.PATH_DOCS)
+@Path(DocsCode.BASE_PATH_DOCS)
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 @Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.TEXT_XML_UTF_8})
 @Service

@@ -13,7 +13,6 @@ import com.integrity.framework.api.bean.SearchResp;
 import com.integrity.framework.api.bean.SelfReq;
 import com.integrity.framework.api.bean.SelfResp;
 import com.integrity.framework.api.code.SysCode;
-import com.integrity.framework.api.code.SysRoot;
 import com.integrity.framework.exception.RespException;
 import com.integrity.framework.service.DefaultService;
 import com.integrity.framework.service.DefaultServiceRest;
@@ -30,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author 李海军
  * @since 1.0.0
  */
-@Path(SysRoot.PATH_DEFAULT)
+@Path(SysCode.BASE_PATH_SYSTEM)
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 @Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.TEXT_XML_UTF_8})
 @Service

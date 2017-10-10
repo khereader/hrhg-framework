@@ -8,6 +8,7 @@ import com.integrity.framework.api.bean.BodyBaseResp;
 import com.integrity.framework.api.bean.BodyReq;
 import com.integrity.framework.api.bean.BodyResp;
 import com.integrity.framework.api.code.CodePath;
+import com.integrity.framework.api.code.CodeType;
 import com.integrity.framework.api.code.SysCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.utils.BeanUtils;
@@ -39,6 +40,7 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
      */
     protected CodePath bizzCode;
 
+
     /**
      * 获取分组字段信息。<br>
      *
@@ -47,6 +49,18 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
     @Override
     protected String groupField() {
         return null;
+    }
+
+    /**
+     * 更新鉴权信息。<br>
+     *
+     * @param uid      用户ID
+     * @param codePath 编码路径
+     */
+    @Override
+    public void refreshAuthInfo(String uid, CodePath codePath) {
+        this.uidLogin = uid;
+        this.bizzCode = codePath;
     }
 
     /**
@@ -65,7 +79,8 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
         }
 
         // 业务逻辑处理开始
-        LogUtils.info(logger, this.bizzCode.getRoot().getCode() + SysCode.Message.I_REQ_BEGIN.getCode(),
+        LogUtils.info(logger, this.bizzCode.getRootCode() + CodeType.SEPARATOR_UNDERLINE
+                        + SysCode.Message.I_REQ_BEGIN.getCode(),
                 SysCode.Message.I_REQ_BEGIN.getMessage(), this.bizzCode.getBizzName());
         return super.preLogic(param);
     }
@@ -89,7 +104,8 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
         modifyResult.getHead().setMsg(String.format(SysCode.Message.OK.getMessage(), this.bizzCode.getBizzName()));
 
         // 业务逻辑处理完成
-        LogUtils.info(logger, this.bizzCode.getRoot().getCode() + SysCode.Message.I_REQ_END.getCode(),
+        LogUtils.info(logger, this.bizzCode.getRootCode() + CodeType.SEPARATOR_UNDERLINE
+                        + SysCode.Message.I_REQ_END.getCode(),
                 SysCode.Message.I_REQ_END.getMessage(), this.bizzCode.getBizzName());
 
         return (R) modifyResult;

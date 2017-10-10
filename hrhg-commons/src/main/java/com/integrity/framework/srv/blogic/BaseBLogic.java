@@ -3,6 +3,7 @@
  */
 package com.integrity.framework.srv.blogic;
 
+import com.integrity.framework.api.code.CodePath;
 import com.integrity.framework.exception.BLogicException;
 
 /**
@@ -27,4 +28,12 @@ public interface BaseBLogic<P extends Object, R extends Object> {
      * @return 结果参数类型
      */
     Class<R> getClazzResult();
+
+    /**
+     * 更新鉴权信息。<br>
+     *
+     * @param uid      用户ID
+     * @param codePath 编码路径
+     */
+    void refreshAuthInfo(String uid, CodePath codePath);
 }

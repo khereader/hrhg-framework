@@ -10,6 +10,18 @@ import lombok.Getter;
  */
 public interface DocsCode {
     /**
+     * 基础编码
+     */
+    String BASE_CODE_DOCS = "DOCS";
+    /**
+     * 基础路径
+     */
+    String BASE_PATH = "/services/integrity";
+    /**
+     * 在线文档接口路径
+     */
+    String BASE_PATH_DOCS = "docs";
+    /**
      * 在线文档-－swagger文档。
      */
     String PATH_SWAGGER = "swagger";
@@ -56,11 +68,6 @@ public interface DocsCode {
          */
         @Getter
         private final boolean cashe;
-        /**
-         * 默认根路径
-         */
-        @Getter
-        private final SysRoot.Root root = SysRoot.Root.DOCS;
 
         /**
          * 私有构造函数。<br>
@@ -81,11 +88,11 @@ public interface DocsCode {
          */
         Path(String bizzName, String path, boolean cashe) {
             this.code = String.format(FORMAT_CODE_PATH, ordinal() + 1);
-            this.fullCode = root.getFullCode() + code;
+            this.fullCode = BASE_CODE_DOCS + SEPARATOR_UNDERLINE + code;
             this.bizzName = bizzName;
             this.path = path;
             this.cashe = cashe;
-            this.fullPath = root.getFullPath() + SEPARATOR_SLASH + path;
+            this.fullPath = BASE_PATH + SEPARATOR_SLASH + BASE_PATH_DOCS + SEPARATOR_SLASH + path;
         }
 
         /**
@@ -98,7 +105,17 @@ public interface DocsCode {
          */
         @Override
         public String toString() {
-            return HEAD_PATH + SEPARATOR_COLON + root.name() + SEPARATOR_COLON + name();
+            return HEAD_PATH + SEPARATOR_COLON + BASE_CODE_DOCS + SEPARATOR_COLON + name();
+        }
+
+        /**
+         * 获取根编码。<br>
+         *
+         * @return 根编码
+         */
+        @Override
+        public String getRootCode() {
+            return BASE_CODE_DOCS;
         }
 
         /**
@@ -142,10 +159,6 @@ public interface DocsCode {
          * 系统消息(消息格式)
          */
         private final String message;
-        /**
-         * 业务编码
-         */
-        private final SysRoot.Root root = SysRoot.Root.DOCS;
 
         /**
          * 私有构造函数。<br>
@@ -155,7 +168,7 @@ public interface DocsCode {
          */
         Message(String code, String message) {
             this.code = code;
-            this.fullCode = root.getFullCode() + code;
+            this.fullCode = BASE_PATH_DOCS + SEPARATOR_UNDERLINE + code;
             this.message = message;
         }
 
@@ -181,16 +194,6 @@ public interface DocsCode {
         }
 
         /**
-         * 获取根编码。<br>
-         *
-         * @return 根编码
-         */
-        @Override
-        public CodePath getRoot() {
-            return this.root;
-        }
-
-        /**
          * 获取路径。<br>
          *
          * @return 路径
@@ -209,7 +212,17 @@ public interface DocsCode {
          */
         @Override
         public String toString() {
-            return HEAD_MESSAGE + SEPARATOR_COLON + root.name() + SEPARATOR_COLON + name();
+            return HEAD_MESSAGE + SEPARATOR_COLON + BASE_CODE_DOCS + SEPARATOR_COLON + name();
+        }
+
+        /**
+         * 获取根编码。<br>
+         *
+         * @return 根编码
+         */
+        @Override
+        public String getRootCode() {
+            return BASE_CODE_DOCS;
         }
 
         /**
