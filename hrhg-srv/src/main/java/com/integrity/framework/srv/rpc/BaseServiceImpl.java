@@ -42,6 +42,11 @@ public abstract class BaseServiceImpl {
     private static final Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
 
     /**
+     * 消息头忽略复制字段名
+     */
+    private static final String HEAD_FIELD_IGONE = "httpRequestInfo";
+
+    /**
      * 当前业务服务业务编码/URI集合。<br>
      *
      * @return 业务编码/URI集合
@@ -277,8 +282,8 @@ public abstract class BaseServiceImpl {
         SsoReq req = new SsoReq();
 
         try {
-            // 复制原请求属性
-            BeanUtils.copyBeanValue(reqHead, req.getHead());
+            // 复制原请求属性(忽略)
+            BeanUtils.copyBeanValue(reqHead, req.getHead(), false, true, HEAD_FIELD_IGONE);
         } catch (Exception e) {
             throw new BLogicException(SysCode.Message.E_NO_PROPERTY);
         }
