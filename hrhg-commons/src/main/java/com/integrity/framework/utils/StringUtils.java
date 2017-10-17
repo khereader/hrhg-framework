@@ -46,6 +46,10 @@ public final class StringUtils {
      */
     public static final String NULL_STRING = "";
     /**
+     * 线字符串
+     */
+    public static final String LINE_STRING = "-";
+    /**
      * 空字符串数组
      */
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
