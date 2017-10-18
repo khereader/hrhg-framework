@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.integrity</groupId>
     <artifactId>hrhg-framework</artifactId>
-    <version>2.3.4</version>
+    <version>2.3.6.1</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>好人好股框架</description>
@@ -91,6 +91,7 @@
         <hessian_version>4.0.7</hessian_version>
         <!-- XML序列化 -->
         <xstream_version>1.4.10</xstream_version>
+        <resteasy_version>3.1.4.Final</resteasy_version>
         <!-- Json解析工具库 -->
         <jackson_version>2.8.8</jackson_version>
         <!-- Dubbo框架 -->
@@ -429,6 +430,21 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jaxrs</artifactId>
+                <version>${resteasy_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-client</artifactId>
+                <version>${resteasy_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jaxb-provider</artifactId>
+                <version>${resteasy_version}</version>
             </dependency>
             <!-- Json序列化工具 -->
             <dependency>
