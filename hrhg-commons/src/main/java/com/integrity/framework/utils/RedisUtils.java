@@ -31,13 +31,29 @@ public final class RedisUtils {
      */
     public static final long MINUTES_PER_HOUR = 60;
     /**
-     * 默认失效时间(2小时,单位秒)
+     * 默认失效时间(1分钟,单位毫秒)
      */
-    public static final long DEFAULT_EXPIRE_SECOND = 2 * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
+    public static final long DEFAULT_EXPIRE_MINUTE_ONE = MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
+    /**
+     * 默认失效时间(3分钟,单位毫秒)
+     */
+    public static final long DEFAULT_EXPIRE_MINUTE_THREE = 3 * DEFAULT_EXPIRE_MINUTE_ONE;
+    /**
+     * 默认失效时间(10分钟,单位毫秒)
+     */
+    public static final long DEFAULT_EXPIRE_MINUTE_TEN = 10 * DEFAULT_EXPIRE_MINUTE_ONE;
+    /**
+     * 默认失效时间(30分钟,单位毫秒)
+     */
+    public static final long DEFAULT_EXPIRE_MINUTE_THIRTY = 30 * DEFAULT_EXPIRE_MINUTE_ONE;
     /**
      * 默认失效时间(2小时,单位毫秒)
      */
-    public static final long DEFAULT_EXPIRE_MILLISECOND = DEFAULT_EXPIRE_SECOND * MILLISECONDS_PER_SECOND;
+    public static final long DEFAULT_EXPIRE_HOUR_ONE = MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
+    /**
+     * 默认失效时间(2小时,单位毫秒)
+     */
+    public static final long DEFAULT_EXPIRE_HOUR_TWO = 2 * DEFAULT_EXPIRE_HOUR_ONE;
 
     /**
      * 私有构造函数。<br>
@@ -285,7 +301,7 @@ public final class RedisUtils {
      * @throws Exception 系统异常
      */
     public static <T extends Object> void setJson(RedisDataSource redisDataSource, String key, T data) throws Exception {
-        setJson(redisDataSource, key, data, DEFAULT_EXPIRE_MILLISECOND);
+        setJson(redisDataSource, key, data, DEFAULT_EXPIRE_HOUR_TWO);
     }
 
     /**
@@ -561,7 +577,7 @@ public final class RedisUtils {
      */
     public static <T extends Object> void hsetJson(RedisDataSource redisDataSource, String key,
                                                    String field, T data) throws Exception {
-        hsetJson(redisDataSource, key, field, data, DEFAULT_EXPIRE_MILLISECOND);
+        hsetJson(redisDataSource, key, field, data, DEFAULT_EXPIRE_HOUR_TWO);
     }
 
     /**
@@ -623,7 +639,7 @@ public final class RedisUtils {
      */
     public static <T extends Object> void hmsetJson(RedisDataSource redisDataSource, String key,
                                                     Map<String, T> datas) throws Exception {
-        hmsetJson(redisDataSource, key, datas, DEFAULT_EXPIRE_MILLISECOND);
+        hmsetJson(redisDataSource, key, datas, DEFAULT_EXPIRE_HOUR_TWO);
     }
 
     /**
