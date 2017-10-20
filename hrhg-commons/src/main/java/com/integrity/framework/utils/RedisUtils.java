@@ -33,7 +33,7 @@ public final class RedisUtils {
     /**
      * 默认失效时间(1分钟,单位毫秒)
      */
-    public static final long DEFAULT_EXPIRE_MINUTE_ONE = MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
+    public static final long DEFAULT_EXPIRE_MINUTE_ONE = SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
     /**
      * 默认失效时间(3分钟,单位毫秒)
      */
@@ -47,7 +47,7 @@ public final class RedisUtils {
      */
     public static final long DEFAULT_EXPIRE_MINUTE_THIRTY = 30 * DEFAULT_EXPIRE_MINUTE_ONE;
     /**
-     * 默认失效时间(2小时,单位毫秒)
+     * 默认失效时间(1小时,单位毫秒)
      */
     public static final long DEFAULT_EXPIRE_HOUR_ONE = MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
     /**
