@@ -247,10 +247,13 @@ public abstract class BaseServiceImpl {
         }
 
         switch (appType) {
-            case APP:// 应用平台API服务鉴权
+            case APP: {
+                // 应用平台API服务鉴权
+                break;
+            }
             case MIS: {
                 // 后台MIS用户鉴权
-                break;
+                return ApiType.Type.MIS.name();
             }
             case BATCH: {
                 // 内部批处理应用服务
