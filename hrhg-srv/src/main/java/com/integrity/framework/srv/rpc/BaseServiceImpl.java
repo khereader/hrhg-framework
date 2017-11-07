@@ -296,7 +296,17 @@ public abstract class BaseServiceImpl {
         // 鉴权服务
         SsoResp resp = ssoService.sso(req);
 
-        if (DataUtils.isNullOrEmpty(resp) || StringUtils.isEmpty(resp.getHead().getToken())) {
+        if (DataUtils.isNullOrEmpty(resp)) {
+            // 用户鉴权失败
+            throw new BLogicException(SysCode.Message.E_SYS_EXCEPTION);
+        }
+
+        if (!SysCode.Message.OK.getCode().equals(resp.getHead().getResult())) {
+            // 鉴权逻辑失败
+            throw new BLogicException(resp.getHead().getResult(), resp.getHead().getMsg());
+        }
+
+        if (StringUtils.isEmpty(resp.getHead().getToken())) {
             // 用户鉴权失败
             throw new BLogicException(SysCode.Message.E_AUTH_USER);
         }
