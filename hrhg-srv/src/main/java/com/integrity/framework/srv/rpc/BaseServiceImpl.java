@@ -253,7 +253,7 @@ public abstract class BaseServiceImpl {
             }
             case MIS: {
                 // 后台MIS用户鉴权
-                return ApiType.Type.MIS.name();
+                break;
             }
             case BATCH: {
                 // 内部批处理应用服务
