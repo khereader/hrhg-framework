@@ -232,6 +232,10 @@ public interface SysCode {
          */
         E_NOT_EXIST_BIZZ("无效的业务编码！"),
         /**
+         * 没有鉴权服务
+         */
+        E_NO_AUTH_SERVICE("没有鉴权服务！"),
+        /**
          * 用户鉴权失败
          */
         E_AUTH_USER("用户鉴权失败！"),

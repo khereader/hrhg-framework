@@ -293,6 +293,12 @@ public abstract class BaseServiceImpl {
 
         // 获取鉴权服务
         SsoService ssoService = ssoService(req);
+
+        if (null == ssoService) {
+            // 鉴权服务对象为空
+            throw new BLogicException(SysCode.Message.E_NO_AUTH_SERVICE);
+        }
+
         // 鉴权服务
         SsoResp resp = ssoService.sso(req);
 
