@@ -3,7 +3,7 @@
  */
 package com.integrity.framework.ext.filter;
 
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.utils.LogUtils;
 import com.integrity.framework.utils.StringUtils;
 import org.slf4j.Logger;
@@ -55,8 +55,8 @@ public abstract class TraceInterceptor implements ReaderInterceptor, WriterInter
      */
     public Object aroundReadFrom(ReaderInterceptorContext readerInterceptorContext)
             throws IOException, WebApplicationException {
-        LogUtils.info(logger, SysCode.Message.I_FILTER_INTERCEPTOR_REQ.getFullCode(),
-                SysCode.Message.I_FILTER_INTERCEPTOR_REQ.getMessage());
+        LogUtils.info(logger, FrameworkCode.Message.I_FILTER_INTERCEPTOR_REQ.getFullCode(),
+                FrameworkCode.Message.I_FILTER_INTERCEPTOR_REQ.getMessage());
         // 处理生成请求对象
         Object objRead = readerInterceptorContext.proceed();
         // 更新处理请求对象
@@ -81,8 +81,8 @@ public abstract class TraceInterceptor implements ReaderInterceptor, WriterInter
      */
     public void aroundWriteTo(WriterInterceptorContext writerInterceptorContext)
             throws IOException, WebApplicationException {
-        LogUtils.info(logger, SysCode.Message.I_FILTER_INTERCEPTOR_RESP.getFullCode(),
-                SysCode.Message.I_FILTER_INTERCEPTOR_RESP.getMessage());
+        LogUtils.info(logger, FrameworkCode.Message.I_FILTER_INTERCEPTOR_RESP.getFullCode(),
+                FrameworkCode.Message.I_FILTER_INTERCEPTOR_RESP.getMessage());
         writerInterceptorContext.proceed();
     }
 

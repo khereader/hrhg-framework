@@ -5,7 +5,7 @@ package com.integrity.framework.ext.emapper;
 
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
 import com.integrity.framework.api.bean.BodyBaseResp;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.utils.JsonUtils;
 import com.integrity.framework.utils.LogUtils;
 import com.integrity.framework.utils.StringUtils;
@@ -50,7 +50,7 @@ public abstract class BaseExceptionMapper<E extends Throwable> implements Except
             json = JsonUtils.object2Json(resp);
         } catch (Exception ex) {
             LogUtils.error(logger, ex,
-                    SysCode.Message.E_SYS_EXCEPTION.getFullCode(), SysCode.Message.E_SYS_EXCEPTION.getMessage());
+                    FrameworkCode.Message.E_SYS_EXCEPTION.getFullCode(), FrameworkCode.Message.E_SYS_EXCEPTION.getMessage());
         }
 
         // 正常解析响应

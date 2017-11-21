@@ -4,7 +4,7 @@
 package com.integrity.framework.srv.blogic;
 
 import com.integrity.framework.api.code.CodePath;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.utils.DataUtils;
 
@@ -72,7 +72,7 @@ public abstract class AbstractHttpBLogic<P extends Object, R extends Object>
             // 执行Http请求
             return useHttpTools(param);
         } catch (Exception ex) {
-            throw new BLogicException(ex, SysCode.Message.E_SYS_EXCEPTION);
+            throw new BLogicException(ex, FrameworkCode.Message.E_SYS_EXCEPTION);
         }
     }
 }

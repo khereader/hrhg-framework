@@ -5,7 +5,7 @@ package com.integrity.framework.srv.blogic;
 
 import com.integrity.framework.api.bean.BodyBaseReq;
 import com.integrity.framework.api.bean.BodyBaseResp;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.utils.ClazzUtils;
 
@@ -81,8 +81,8 @@ public abstract class AbstractAopBLogic<P extends Object, R extends Object>
             throw bex;
         } catch (Exception ex) {
             // 系统异常
-            throw new BLogicException(ex, SysCode.Message.E_SYS_EXCEPTION.getFullCode(),
-                    SysCode.Message.E_SYS_EXCEPTION.getMessage());
+            throw new BLogicException(ex, FrameworkCode.Message.E_SYS_EXCEPTION.getFullCode(),
+                    FrameworkCode.Message.E_SYS_EXCEPTION.getMessage());
         }
     }
 }

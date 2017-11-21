@@ -5,7 +5,7 @@ package com.integrity.framework.ext.emapper;
 
 import com.integrity.framework.api.bean.BodyBaseResp;
 import com.integrity.framework.api.bean.DefaultResp;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
@@ -24,8 +24,8 @@ public class JsonMappingExceptionMapper extends BaseExceptionMapper<JsonMappingE
     @Override
     protected BodyBaseResp<?> makeResp(JsonMappingException ex) {
         DefaultResp resp = new DefaultResp();
-        resp.getHead().setResult(SysCode.Message.E_PARAM_FORMAT.getFullCode());
-        resp.getHead().setMsg(SysCode.Message.E_PARAM_FORMAT.getMessage());
+        resp.getHead().setResult(FrameworkCode.Message.E_PARAM_FORMAT.getFullCode());
+        resp.getHead().setMsg(FrameworkCode.Message.E_PARAM_FORMAT.getMessage());
         return resp;
     }
 }

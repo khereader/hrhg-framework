@@ -5,7 +5,7 @@ package com.integrity.framework.ext.emapper;
 
 import com.integrity.framework.api.bean.BodyBaseResp;
 import com.integrity.framework.api.bean.DefaultResp;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 
 import javax.ws.rs.NotFoundException;
 
@@ -25,8 +25,8 @@ public class NotFoundExceptionMapper extends BaseExceptionMapper<NotFoundExcepti
     @Override
     protected BodyBaseResp<?> makeResp(NotFoundException ex) {
         DefaultResp resp = new DefaultResp();
-        resp.getHead().setResult(SysCode.Message.E_NOT_FOUND.getFullCode());
-        resp.getHead().setMsg(SysCode.Message.E_NOT_FOUND.getMessage());
+        resp.getHead().setResult(FrameworkCode.Message.E_NOT_FOUND.getFullCode());
+        resp.getHead().setMsg(FrameworkCode.Message.E_NOT_FOUND.getMessage());
         return resp;
     }
 }

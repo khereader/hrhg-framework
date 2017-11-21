@@ -12,7 +12,7 @@ import com.integrity.framework.api.bean.SearchReq;
 import com.integrity.framework.api.bean.SearchResp;
 import com.integrity.framework.api.bean.SelfReq;
 import com.integrity.framework.api.bean.SelfResp;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.exception.RespException;
 import com.integrity.framework.service.DefaultService;
 import com.integrity.framework.service.DefaultServiceRest;
@@ -29,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author 李海军
  * @since 1.0.0
  */
-@Path(SysCode.BASE_PATH_SYSTEM)
+@Path(FrameworkCode.BASE_PATH_FRAMEWORK)
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_XML})
 @Produces({ContentType.APPLICATION_JSON_UTF_8, ContentType.TEXT_XML_UTF_8})
 @Service
@@ -47,7 +47,7 @@ public class DefaultRest implements DefaultServiceRest {
      * @return 简单响应结果
      */
     @POST
-    @Path(SysCode.PATH_SIMPLE)
+    @Path(FrameworkCode.PATH_SIMPLE)
     public String simple(String req) {
         return this.defaultService.simple(req);
     }
@@ -59,7 +59,7 @@ public class DefaultRest implements DefaultServiceRest {
      * @return 自定义响应结果
      */
     @POST
-    @Path(SysCode.PATH_SELF)
+    @Path(FrameworkCode.PATH_SELF)
     @Consumes({MediaType.TEXT_XML})
     @Produces({ContentType.TEXT_XML_UTF_8})
     public SelfResp self(SelfReq req) {
@@ -74,7 +74,7 @@ public class DefaultRest implements DefaultServiceRest {
      * @throws RespException 业务异常
      */
     @POST
-    @Path(SysCode.PATH_TEST)
+    @Path(FrameworkCode.PATH_TEST)
     public DefaultResp test(DefaultReq req) {
         return this.defaultService.test(req);
     }
@@ -86,7 +86,7 @@ public class DefaultRest implements DefaultServiceRest {
      * @return 查询字段响应结果
      */
     @POST
-    @Path(SysCode.PATH_SEARCH)
+    @Path(FrameworkCode.PATH_SEARCH)
     public SearchResp search(SearchReq req) {
         return this.defaultService.search(req);
     }

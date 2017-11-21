@@ -14,7 +14,7 @@ import com.integrity.framework.api.bean.SsoResp;
 import com.integrity.framework.api.code.ApiType;
 import com.integrity.framework.api.code.CodePath;
 import com.integrity.framework.api.code.OpBizz;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.exception.RespException;
 import com.integrity.framework.service.SsoService;
@@ -164,7 +164,7 @@ public abstract class BaseServiceImpl {
     private CodePath refreshReqCode(HeadReq reqHead) throws BLogicException {
         if (DataUtils.isNullOrEmpty(reqHead)) {
             // 请求头为空时
-            throw new BLogicException(SysCode.Message.E_PARAM_FORMAT);
+            throw new BLogicException(FrameworkCode.Message.E_PARAM_FORMAT);
         }
 
         // 获取编码CodePath集合
@@ -176,7 +176,7 @@ public abstract class BaseServiceImpl {
 
             if (StringUtils.isEmpty(code)) {
                 // 业务编码为空
-                throw new BLogicException(SysCode.Message.E_NOT_FOUND);
+                throw new BLogicException(FrameworkCode.Message.E_NOT_FOUND);
             }
 
             // 强制更新业务编码
@@ -226,7 +226,7 @@ public abstract class BaseServiceImpl {
     private String checkAuthAndRefreshToken(HeadReq reqHead) throws BLogicException, RespException {
         if (DataUtils.isNullOrEmpty(reqHead)) {
             // 请求头为空时
-            throw new BLogicException(SysCode.Message.E_PARAM_FORMAT);
+            throw new BLogicException(FrameworkCode.Message.E_PARAM_FORMAT);
         }
 
         // 获取无需检查权限业务编码
@@ -243,7 +243,7 @@ public abstract class BaseServiceImpl {
 
         if (null == appType) {
             // 无效的应用编码类型
-            throw new BLogicException(SysCode.Message.E_NOT_EXIST_APPTYPE);
+            throw new BLogicException(FrameworkCode.Message.E_NOT_EXIST_APPTYPE);
         }
 
         switch (appType) {
@@ -277,7 +277,7 @@ public abstract class BaseServiceImpl {
             }
             default: {
                 // 无效的应用编码类型
-                throw new BLogicException(SysCode.Message.E_NOT_EXIST_APPTYPE);
+                throw new BLogicException(FrameworkCode.Message.E_NOT_EXIST_APPTYPE);
             }
         }
 
@@ -288,7 +288,7 @@ public abstract class BaseServiceImpl {
             // 复制原请求属性(忽略)
             BeanUtils.copyBeanValue(reqHead, req.getHead(), false, true, HEAD_FIELD_IGONE);
         } catch (Exception e) {
-            throw new BLogicException(SysCode.Message.E_NO_PROPERTY);
+            throw new BLogicException(FrameworkCode.Message.E_NO_PROPERTY);
         }
 
         // 获取鉴权服务
@@ -296,7 +296,7 @@ public abstract class BaseServiceImpl {
 
         if (null == ssoService) {
             // 鉴权服务对象为空
-            throw new BLogicException(SysCode.Message.E_NO_AUTH_SERVICE);
+            throw new BLogicException(FrameworkCode.Message.E_NO_AUTH_SERVICE);
         }
 
         // 鉴权服务
@@ -304,17 +304,17 @@ public abstract class BaseServiceImpl {
 
         if (DataUtils.isNullOrEmpty(resp)) {
             // 用户鉴权失败
-            throw new BLogicException(SysCode.Message.E_SYS_EXCEPTION);
+            throw new BLogicException(FrameworkCode.Message.E_SYS_EXCEPTION);
         }
 
-        if (!SysCode.Message.OK.getCode().equals(resp.getHead().getResult())) {
+        if (!FrameworkCode.Message.OK.getCode().equals(resp.getHead().getResult())) {
             // 鉴权逻辑失败
             throw new BLogicException(resp.getHead().getResult(), resp.getHead().getMsg());
         }
 
         if (StringUtils.isEmpty(resp.getHead().getToken())) {
             // 用户鉴权失败
-            throw new BLogicException(SysCode.Message.E_AUTH_USER);
+            throw new BLogicException(FrameworkCode.Message.E_AUTH_USER);
         }
 
         // 更新用户token

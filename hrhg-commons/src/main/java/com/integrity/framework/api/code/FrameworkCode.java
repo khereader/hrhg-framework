@@ -8,11 +8,11 @@ import lombok.Getter;
  * @author 李海军
  * @since 1.0.0
  */
-public interface SysCode {
+public interface FrameworkCode {
     /**
      * 基础编码
      */
-    String BASE_CODE_SYSTEM = "SYSTEM";
+    String BASE_CODE_FRAMEWORK = "FRAMEWORK";
     /**
      * 基础路径
      */
@@ -20,7 +20,7 @@ public interface SysCode {
     /**
      * 默认服务路径
      */
-    String BASE_PATH_SYSTEM = "system";
+    String BASE_PATH_FRAMEWORK = "framework";
 
     /**
      * 默认服务路径-－测试。
@@ -49,19 +49,19 @@ public interface SysCode {
         /**
          * 默认服务路径-－系统测试。
          */
-        TEST("系统测试", SysCode.PATH_TEST),
+        TEST("系统测试", FrameworkCode.PATH_TEST),
         /**
          * 默认服务路径-－简单接口。
          */
-        SIMPLE("简单接口", SysCode.PATH_SIMPLE),
+        SIMPLE("简单接口", FrameworkCode.PATH_SIMPLE),
         /**
          * 默认服务路径-－自定义接口。
          */
-        SELF("自定义接口", SysCode.PATH_SELF),
+        SELF("自定义接口", FrameworkCode.PATH_SELF),
         /**
          * 默认服务路径-－自定义接口。
          */
-        SEARCH("查询接口", SysCode.PATH_SEARCH);
+        SEARCH("查询接口", FrameworkCode.PATH_SEARCH);
 
         /**
          * 业务编码
@@ -112,12 +112,12 @@ public interface SysCode {
          * @param cashe    是否缓存标记
          */
         Path(String bizzName, String path, boolean cashe) {
-            this.code = String.format(FORMAT_CODE_PATH, ordinal() + 1);
-            this.fullCode = BASE_PATH_SYSTEM + SEPARATOR_UNDERLINE + code;
+            this.code = name();
+            this.fullCode = BASE_PATH_FRAMEWORK + SEPARATOR_UNDERLINE + code;
             this.bizzName = bizzName;
             this.path = path;
             this.cashe = cashe;
-            this.fullPath = BASE_PATH + SEPARATOR_SLASH + BASE_PATH_SYSTEM + SEPARATOR_SLASH + path;
+            this.fullPath = BASE_PATH + SEPARATOR_SLASH + BASE_PATH_FRAMEWORK + SEPARATOR_SLASH + path;
         }
 
         /**
@@ -130,7 +130,7 @@ public interface SysCode {
          */
         @Override
         public String toString() {
-            return HEAD_PATH + SEPARATOR_COLON + BASE_CODE_SYSTEM + SEPARATOR_COLON + name();
+            return HEAD_PATH + SEPARATOR_COLON + BASE_CODE_FRAMEWORK + SEPARATOR_COLON + name();
         }
 
         /**
@@ -140,7 +140,7 @@ public interface SysCode {
          */
         @Override
         public String getRootCode() {
-            return BASE_CODE_SYSTEM;
+            return BASE_CODE_FRAMEWORK;
         }
 
         /**
@@ -264,7 +264,7 @@ public interface SysCode {
          */
         Message(String message) {
             this.code = String.format((0 == ordinal() ? FORMAT_CODE : FORMAT_CODE_MESSAGE), ordinal());
-            this.fullCode = BASE_CODE_SYSTEM + SEPARATOR_UNDERLINE + code;
+            this.fullCode = BASE_CODE_FRAMEWORK + SEPARATOR_UNDERLINE + code;
             this.message = message;
         }
 
@@ -308,7 +308,7 @@ public interface SysCode {
          */
         @Override
         public String toString() {
-            return HEAD_MESSAGE + SEPARATOR_COLON + BASE_CODE_SYSTEM + SEPARATOR_COLON + name();
+            return HEAD_MESSAGE + SEPARATOR_COLON + BASE_CODE_FRAMEWORK + SEPARATOR_COLON + name();
         }
 
         /**
@@ -318,7 +318,7 @@ public interface SysCode {
          */
         @Override
         public String getRootCode() {
-            return BASE_CODE_SYSTEM;
+            return BASE_CODE_FRAMEWORK;
         }
 
         /**

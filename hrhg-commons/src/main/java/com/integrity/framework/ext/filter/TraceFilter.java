@@ -4,7 +4,7 @@
 package com.integrity.framework.ext.filter;
 
 import com.integrity.framework.api.bean.BodyBaseResp;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.utils.LogUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,8 +75,8 @@ public abstract class TraceFilter implements ContainerRequestFilter, ContainerRe
      * @throws IOException IO异常
      */
     public void filter(ContainerRequestContext requestContext) throws IOException {
-        LogUtils.info(logger, SysCode.Message.I_FILTER_TRACE_REQ.getFullCode(),
-                SysCode.Message.I_FILTER_TRACE_REQ.getMessage());
+        LogUtils.info(logger, FrameworkCode.Message.I_FILTER_TRACE_REQ.getFullCode(),
+                FrameworkCode.Message.I_FILTER_TRACE_REQ.getMessage());
     }
 
     /**
@@ -88,8 +88,8 @@ public abstract class TraceFilter implements ContainerRequestFilter, ContainerRe
      */
     public void filter(ContainerRequestContext containerRequestContext,
                        ContainerResponseContext containerResponseContext) throws IOException {
-        LogUtils.info(logger, SysCode.Message.I_FILTER_TRACE_RESP.getFullCode(),
-                SysCode.Message.I_FILTER_TRACE_RESP.getMessage());
+        LogUtils.info(logger, FrameworkCode.Message.I_FILTER_TRACE_RESP.getFullCode(),
+                FrameworkCode.Message.I_FILTER_TRACE_RESP.getMessage());
         if (containerRequestContext.getMethod().equals(HEADER_VALUE_OPTIONS)) {
             // CORS跨域处理，响应预校验信息
             containerResponseContext.getHeaders().add(HEADER_KEY_ALLOW_ORIGIN, whiteHost());

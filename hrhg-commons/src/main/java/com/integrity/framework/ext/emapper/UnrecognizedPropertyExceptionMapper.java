@@ -5,7 +5,7 @@ package com.integrity.framework.ext.emapper;
 
 import com.integrity.framework.api.bean.BodyBaseResp;
 import com.integrity.framework.api.bean.DefaultResp;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 /**
@@ -24,8 +24,8 @@ public class UnrecognizedPropertyExceptionMapper extends BaseExceptionMapper<Unr
     @Override
     protected BodyBaseResp<?> makeResp(UnrecognizedPropertyException ex) {
         DefaultResp resp = new DefaultResp();
-        resp.getHead().setResult(SysCode.Message.E_PARAM_UNKNOWN.getFullCode());
-        resp.getHead().setMsg(SysCode.Message.E_PARAM_UNKNOWN.getMessage());
+        resp.getHead().setResult(FrameworkCode.Message.E_PARAM_UNKNOWN.getFullCode());
+        resp.getHead().setMsg(FrameworkCode.Message.E_PARAM_UNKNOWN.getMessage());
         return resp;
     }
 }

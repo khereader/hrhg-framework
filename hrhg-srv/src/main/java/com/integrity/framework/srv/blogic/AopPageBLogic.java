@@ -9,7 +9,7 @@ import com.integrity.framework.api.bean.BodyReq;
 import com.integrity.framework.api.bean.BodyResp;
 import com.integrity.framework.api.code.CodePath;
 import com.integrity.framework.api.code.CodeType;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.utils.BeanUtils;
 import com.integrity.framework.utils.LogUtils;
@@ -75,13 +75,13 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
     protected P preLogic(P param) throws BLogicException {
         if (null == this.bizzCode) {
             // 业务编码不存在
-            throw new BLogicException(SysCode.Message.E_NOT_EXIST_BIZZ);
+            throw new BLogicException(FrameworkCode.Message.E_NOT_EXIST_BIZZ);
         }
 
         // 业务逻辑处理开始
         LogUtils.info(logger, this.bizzCode.getRootCode() + CodeType.SEPARATOR_UNDERLINE
-                        + SysCode.Message.I_REQ_BEGIN.getCode(),
-                SysCode.Message.I_REQ_BEGIN.getMessage(), this.bizzCode.getBizzName());
+                        + FrameworkCode.Message.I_REQ_BEGIN.getCode(),
+                FrameworkCode.Message.I_REQ_BEGIN.getMessage(), this.bizzCode.getBizzName());
         return super.preLogic(param);
     }
 
@@ -99,14 +99,14 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
         // 执行父功能操作
         BodyBaseResp<?> modifyResult = super.postLogic(param, result);
         // 设置成功消息
-        modifyResult.getHead().setResult(SysCode.Message.OK.getFullCode());
+        modifyResult.getHead().setResult(FrameworkCode.Message.OK.getFullCode());
         // 设置成功消息
-        modifyResult.getHead().setMsg(String.format(SysCode.Message.OK.getMessage(), this.bizzCode.getBizzName()));
+        modifyResult.getHead().setMsg(String.format(FrameworkCode.Message.OK.getMessage(), this.bizzCode.getBizzName()));
 
         // 业务逻辑处理完成
         LogUtils.info(logger, this.bizzCode.getRootCode() + CodeType.SEPARATOR_UNDERLINE
-                        + SysCode.Message.I_REQ_END.getCode(),
-                SysCode.Message.I_REQ_END.getMessage(), this.bizzCode.getBizzName());
+                        + FrameworkCode.Message.I_REQ_END.getCode(),
+                FrameworkCode.Message.I_REQ_END.getMessage(), this.bizzCode.getBizzName());
 
         return (R) modifyResult;
     }
@@ -133,7 +133,7 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
         try {
             BeanUtils.copyBeanValue(respData, respBody);
         } catch (Exception e) {
-            throw new BLogicException(SysCode.Message.E_NO_PROPERTY);
+            throw new BLogicException(FrameworkCode.Message.E_NO_PROPERTY);
         }
     }
 }

@@ -6,7 +6,7 @@ package com.integrity.framework.ext.emapper;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.integrity.framework.api.bean.BodyBaseResp;
 import com.integrity.framework.api.bean.DefaultResp;
-import com.integrity.framework.api.code.SysCode;
+import com.integrity.framework.api.code.FrameworkCode;
 
 /**
  * 远程服务错误。<br>
@@ -24,8 +24,8 @@ public class RpcExceptionMapper extends BaseExceptionMapper<RpcException> {
     @Override
     protected BodyBaseResp<?> makeResp(RpcException ex) {
         DefaultResp resp = new DefaultResp();
-        resp.getHead().setResult(SysCode.Message.E_RPC_RESOURCE.getFullCode());
-        resp.getHead().setMsg(SysCode.Message.E_RPC_RESOURCE.getMessage());
+        resp.getHead().setResult(FrameworkCode.Message.E_RPC_RESOURCE.getFullCode());
+        resp.getHead().setMsg(FrameworkCode.Message.E_RPC_RESOURCE.getMessage());
         return resp;
     }
 }
