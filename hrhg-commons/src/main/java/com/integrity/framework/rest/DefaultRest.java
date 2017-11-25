@@ -37,7 +37,7 @@ public class DefaultRest implements DefaultServiceRest {
     /**
      * 默认测试Srv服务
      */
-    @Reference
+    @Reference(check = false)
     private DefaultService defaultService;
 
     /**
