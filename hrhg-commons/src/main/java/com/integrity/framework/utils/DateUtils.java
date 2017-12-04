@@ -14,32 +14,7 @@ import java.util.Date;
  * @author 李海军
  * @since 1.0.0
  */
-public final class DateUtils {
-    /**
-     * 1秒的毫秒数
-     */
-    public static final long SECOND_IN_MILLIS = 1000L;
-    /**
-     * 1分钟的毫秒数
-     */
-    public static final long MINUTE_IN_MILLIS = 60 * SECOND_IN_MILLIS;
-    /**
-     * 1小时的毫秒数
-     */
-    public static final long HOUR_IN_MILLIS = 60 * MINUTE_IN_MILLIS;
-    /**
-     * 1天的毫秒数
-     */
-    public static final long DAY_IN_MILLIS = 24 * HOUR_IN_MILLIS;
-    /**
-     * 1周的毫秒数
-     */
-    public static final long WEEK_IN_MILLIS = 7 * DAY_IN_MILLIS;
-    /**
-     * 90天
-     */
-    public static final int DAYS_90 = 90;
-
+public final class DateUtils implements TimeConst {
     /**
      * 日期形式(yyyy-MM-dd HH:mm)
      */
@@ -136,12 +111,21 @@ public final class DateUtils {
     public static final String DATE_FORMAT_RECORD_DATE_L = "yyyy/MM/dd|HH:mm:ss.SSS";
 
     /**
-     * 获取系统时间戳。<br>
+     * 获取系统时间戳(13位，毫秒)。<br>
      *
      * @return 系统时间戳
      */
     public static long getTimeStamp() {
         return System.currentTimeMillis();
+    }
+
+    /**
+     * 获取系统时间戳（10位，秒）。<br>
+     *
+     * @return 系统时间戳
+     */
+    public static long getTimeStampSecond() {
+        return System.currentTimeMillis() / MILLISECONDS_PER_SECOND;
     }
 
     /**
@@ -371,6 +355,6 @@ public final class DateUtils {
         }
 
         //返回N天后的时间戳
-        return beginTime + days * DAY_IN_MILLIS;
+        return beginTime + days * DEFAULT_EXPIRE_DAY_ONE;
     }
 }

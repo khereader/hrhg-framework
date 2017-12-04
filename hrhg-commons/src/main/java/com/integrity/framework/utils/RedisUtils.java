@@ -17,44 +17,7 @@ import java.util.Map;
  * @author 李海军
  * @since 1.0.0
  */
-public final class RedisUtils {
-    /**
-     * 每秒对应毫秒数
-     */
-    public static final long MILLISECONDS_PER_SECOND = 1000L;
-    /**
-     * 每分钟对应的秒数
-     */
-    public static final long SECONDS_PER_MINUTE = 60;
-    /**
-     * 每小时对应的分钟数
-     */
-    public static final long MINUTES_PER_HOUR = 60;
-    /**
-     * 默认失效时间(1分钟,单位毫秒)
-     */
-    public static final long DEFAULT_EXPIRE_MINUTE_ONE = SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
-    /**
-     * 默认失效时间(3分钟,单位毫秒)
-     */
-    public static final long DEFAULT_EXPIRE_MINUTE_THREE = 3 * DEFAULT_EXPIRE_MINUTE_ONE;
-    /**
-     * 默认失效时间(10分钟,单位毫秒)
-     */
-    public static final long DEFAULT_EXPIRE_MINUTE_TEN = 10 * DEFAULT_EXPIRE_MINUTE_ONE;
-    /**
-     * 默认失效时间(30分钟,单位毫秒)
-     */
-    public static final long DEFAULT_EXPIRE_MINUTE_THIRTY = 30 * DEFAULT_EXPIRE_MINUTE_ONE;
-    /**
-     * 默认失效时间(1小时,单位毫秒)
-     */
-    public static final long DEFAULT_EXPIRE_HOUR_ONE = MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
-    /**
-     * 默认失效时间(2小时,单位毫秒)
-     */
-    public static final long DEFAULT_EXPIRE_HOUR_TWO = 2 * DEFAULT_EXPIRE_HOUR_ONE;
-
+public final class RedisUtils implements TimeConst {
     /**
      * 私有构造函数。<br>
      */
