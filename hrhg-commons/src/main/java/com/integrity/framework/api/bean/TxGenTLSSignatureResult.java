@@ -1,5 +1,6 @@
 package com.integrity.framework.api.bean;
 
+import com.integrity.framework.utils.StringUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class TxGenTLSSignatureResult implements Serializable{
+public class TxGenTLSSignatureResult implements Serializable {
     /**
      * 签名失败信息
      */
@@ -33,7 +34,7 @@ public class TxGenTLSSignatureResult implements Serializable{
     private int initTime;
 
     public TxGenTLSSignatureResult() {
-        errMessage = "";
-        urlSig = "";
+        errMessage = StringUtils.NULL_STRING;
+        urlSig = StringUtils.NULL_STRING;
     }
 }

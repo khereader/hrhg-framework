@@ -1,5 +1,7 @@
 package com.integrity.framework.api.bean;
 
+import com.integrity.framework.utils.StringUtils;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -33,7 +35,7 @@ public class TxCheckTLSSignatureResult implements Serializable {
     private int initTime;
 
     public TxCheckTLSSignatureResult() {
-        errMessage = "";
-        verifyResult = false;
+        errMessage = StringUtils.NULL_STRING;
+        verifyResult = Boolean.FALSE;
     }
 }

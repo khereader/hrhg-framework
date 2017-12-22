@@ -27,11 +27,6 @@ public class TxTLSSignature implements Serializable {
     @JsonProperty(value = "TLS.expire_after")
     private String expireAfter;
     /**
-     * 版本
-     */
-//    @JsonProperty(value = "TLS.version")
-//    private String version;
-    /**
      * 账号管理员 云通讯后台管理查询
      */
     @JsonProperty(value = "TLS.identifier")
