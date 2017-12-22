@@ -1,7 +1,5 @@
 package com.integrity.framework.utils;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
 import org.bouncycastle.util.Arrays;
 
 /**

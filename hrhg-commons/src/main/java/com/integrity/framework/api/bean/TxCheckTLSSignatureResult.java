@@ -1,7 +1,6 @@
 package com.integrity.framework.api.bean;
 
 import com.integrity.framework.utils.StringUtils;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
