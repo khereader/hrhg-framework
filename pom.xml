@@ -128,6 +128,8 @@
         <jmockit_version>1.32</jmockit_version>
         <aliyun_sdk_oss_version>2.7.0</aliyun_sdk_oss_version>
         <aliyun_sdk_mns_version>1.1.8</aliyun_sdk_mns_version>
+        <commons_codec_version>1.11</commons_codec_version>
+        <bc_jdk15on_version>1.58</bc_jdk15on_version>
     </properties>
 
     <!-- 私服访问定义 -->
@@ -602,6 +604,23 @@
                 <groupId>com.aliyun.mns</groupId>
                 <artifactId>aliyun-sdk-mns</artifactId>
                 <version>${aliyun_sdk_mns_version}</version>
+            </dependency>
+            <!-- 转码工具 -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons_codec_version}</version>
+            </dependency>
+            <!-- 压缩/解压工具 -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bc_jdk15on_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>${bc_jdk15on_version}</version>
             </dependency>
             <!-- 测试库 -->
             <dependency>
