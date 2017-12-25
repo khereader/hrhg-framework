@@ -4,7 +4,11 @@
 package com.integrity.framework.api.code;
 
 
+import com.integrity.framework.utils.DataUtils;
 import com.integrity.framework.utils.StringUtils;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * 提供服务类型。<br>
@@ -168,6 +172,38 @@ public interface ApiType {
             }
 
             return code.getCodeName();
+        }
+
+        /**
+         * 生成所有类型集合。<br>
+         *
+         * @return 所有类型集合
+         */
+        public static Map<String, Integer> allTypeMap() {
+            return allTypeMap(null);
+        }
+
+        /**
+         * 生成所有类型集合。<br>
+         *
+         * @param exclude 排除类型
+         * @return 所有类型集合
+         */
+        public static Map<String, Integer> allTypeMap(Type exclude) {
+            // 生成所有类型集合
+            Map<String, Integer> allTypes = new LinkedHashMap<>();
+
+            for (Type type : Type.values()) {
+                if (!DataUtils.isNullOrEmpty(exclude) && exclude == type) {
+                    // 排除数据
+                    continue;
+                }
+
+                // 枚举所有类型
+                allTypes.put(type.getCodeName(), type.getCode());
+            }
+
+            return allTypes;
         }
     }
 }
