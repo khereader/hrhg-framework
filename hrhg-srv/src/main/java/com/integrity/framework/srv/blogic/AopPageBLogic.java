@@ -7,6 +7,7 @@ import com.integrity.framework.api.bean.BodyBaseReq;
 import com.integrity.framework.api.bean.BodyBaseResp;
 import com.integrity.framework.api.bean.BodyReq;
 import com.integrity.framework.api.bean.BodyResp;
+import com.integrity.framework.api.code.ApiType;
 import com.integrity.framework.api.code.CodePath;
 import com.integrity.framework.api.code.CodeType;
 import com.integrity.framework.api.code.FrameworkCode;
@@ -39,7 +40,10 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
      * 业务编码枚举
      */
     protected CodePath bizzCode;
-
+    /**
+     * 应用类型
+     */
+    protected ApiType.Type appType;
 
     /**
      * 获取分组字段信息。<br>
@@ -76,6 +80,17 @@ public abstract class AopPageBLogic<P extends BodyBaseReq, R extends BodyBaseRes
         if (null == this.bizzCode) {
             // 业务编码不存在
             throw new BLogicException(FrameworkCode.Message.E_NOT_EXIST_BIZZ);
+        }
+
+        // 执行父功能操作
+        BodyBaseReq<?> modifyParam = super.preLogic(param);
+
+        // 获取应用类型
+        this.appType = ApiType.Type.fromCode(modifyParam.getHead().getAppId());
+
+        if (null == this.appType) {
+            // 无效的应用编码类型
+            throw new BLogicException(FrameworkCode.Message.E_NOT_EXIST_APPTYPE);
         }
 
         // 业务逻辑处理开始
