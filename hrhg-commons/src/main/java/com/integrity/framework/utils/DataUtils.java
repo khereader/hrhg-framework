@@ -256,7 +256,7 @@ public final class DataUtils {
      */
     public static short makeShortRandom() {
         // 生成指定位数随机数字
-        return (short) (Short.MAX_VALUE * Math.random());
+        return (short) new Random().nextInt();
     }
 
     /**
@@ -265,8 +265,8 @@ public final class DataUtils {
      * @return 随机整数数字
      */
     public static int makeIntRandom() {
-        // 生成指定位数随机数字
-        return (int) (Integer.MAX_VALUE * Math.random());
+        // 随机数
+        return new Random().nextInt();
     }
 
     /**
@@ -275,8 +275,28 @@ public final class DataUtils {
      * @return 随机整数数字
      */
     public static long makeLongRandom() {
-        // 生成指定位数随机数字
-        return (long) (Long.MAX_VALUE * Math.random());
+        // 随机数
+        return new Random().nextLong();
+    }
+
+    /**
+     * 生成Double类型随机数。<br>
+     *
+     * @return 随机整数数字
+     */
+    public static float makeFloatRandom() {
+        // 随机数
+        return new Random().nextFloat();
+    }
+
+    /**
+     * 生成Double类型随机数。<br>
+     *
+     * @return 随机整数数字
+     */
+    public static double makeDoubleRandom() {
+        // 随机数
+        return new Random().nextDouble();
     }
 
     /**
