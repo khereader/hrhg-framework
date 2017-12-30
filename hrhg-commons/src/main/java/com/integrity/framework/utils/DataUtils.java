@@ -76,7 +76,7 @@ public final class DataUtils {
      * 检查是否为空(String)。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(String data) {
         return (null == data || 0 == data.length());
@@ -86,7 +86,7 @@ public final class DataUtils {
      * 检查是否为空（Boolean）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(Boolean data) {
         return null == data;
@@ -96,7 +96,7 @@ public final class DataUtils {
      * 检查是否为空（Integer）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(Integer data) {
         return null == data;
@@ -106,7 +106,7 @@ public final class DataUtils {
      * 检查是否为空（Long）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(Long data) {
         return null == data;
@@ -116,7 +116,7 @@ public final class DataUtils {
      * 检查是否为空（Long）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(Date data) {
         return null == data;
@@ -126,7 +126,7 @@ public final class DataUtils {
      * 检查是否为空（BigDecimal）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(BigDecimal data) {
         return null == data;
@@ -136,7 +136,7 @@ public final class DataUtils {
      * 检查是否为空（Object）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(Object data) {
         return null == data;
@@ -146,7 +146,7 @@ public final class DataUtils {
      * 检查是否为空（Collection）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(Collection data) {
         return null == data || 0 == data.size();
@@ -156,7 +156,7 @@ public final class DataUtils {
      * 检查是否为空（Map）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(Map data) {
         return null == data || 0 == data.size();
@@ -166,7 +166,7 @@ public final class DataUtils {
      * 检查是否为空（Object[]）。<br>
      *
      * @param data 检查数据
-     * @return 检查结果(空:true;非空:false)
+     * @return 检查结果(空 : true ; 非空 : false)
      */
     public static boolean isNullOrEmpty(Object[] data) {
         return null == data || 0 == data.length;
@@ -247,6 +247,36 @@ public final class DataUtils {
         String format = String.format(FORMAT_STRINGBIT, bit);
         // 获取指定位数的数字
         return String.format(format, num);
+    }
+
+    /**
+     * 生成Short类型随机数。<br>
+     *
+     * @return 随机整数数字
+     */
+    public static short makeShortRandom() {
+        // 生成指定位数随机数字
+        return (short) (Short.MAX_VALUE * Math.random());
+    }
+
+    /**
+     * 生成Int类型随机数。<br>
+     *
+     * @return 随机整数数字
+     */
+    public static int makeIntRandom() {
+        // 生成指定位数随机数字
+        return (int) (Integer.MAX_VALUE * Math.random());
+    }
+
+    /**
+     * 生成Long类型随机数。<br>
+     *
+     * @return 随机整数数字
+     */
+    public static long makeLongRandom() {
+        // 生成指定位数随机数字
+        return (long) (Long.MAX_VALUE * Math.random());
     }
 
     /**
