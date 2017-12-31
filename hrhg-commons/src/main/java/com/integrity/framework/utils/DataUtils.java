@@ -614,4 +614,26 @@ public final class DataUtils {
         // 添加新的电话
         list.add(obj);
     }
+
+    /**
+     * 根据Map的值，查询相应的Key。<br>
+     *
+     * @param data  数据集合
+     * @param value 集合的值
+     * @return 获取Key
+     */
+    public static String findMapKeyByValue(Map<String, String> data, String value) {
+        if (DataUtils.isNullOrEmpty(data) || StringUtils.isEmpty(value)) {
+            return StringUtils.NULL_STRING;
+        }
+
+        for (String key : data.keySet()) {
+            // 查找对应的value
+            if (StringUtils.isNotEmptyEquals(value, data.get(key))) {
+                return key;
+            }
+        }
+
+        return StringUtils.NULL_STRING;
+    }
 }
