@@ -3,6 +3,8 @@
  */
 package com.integrity.framework.utils;
 
+import com.integrity.framework.api.pojo.KeyValueObj;
+
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
@@ -635,5 +637,30 @@ public final class DataUtils {
         }
 
         return StringUtils.NULL_STRING;
+    }
+
+    /**
+     * 生成加密密码。<br>
+     *
+     * @param keyValueObj 出参简单对象
+     * @return 加密密码
+     */
+
+    public static String makeMd5Passwd(KeyValueObj keyValueObj) {
+        if (null == keyValueObj) {
+            // 参数为空
+            return StringUtils.EMPTY_STRING;
+        }
+
+        // 获取混淆码
+        String encryCode = StringUtils.isEmpty(keyValueObj.getKey()) ? DataUtils.makeRandom() : keyValueObj.getKey();
+        // 加密重置密码
+        String encryPwd = DataUtils.toMd5(DataUtils.toMd5(keyValueObj.getValue()) + encryCode);
+        // 设置密码
+        keyValueObj.setValue(encryPwd);
+        // 设置干扰吗
+        keyValueObj.setKey(encryCode);
+
+        return encryPwd;
     }
 }
