@@ -13,8 +13,8 @@ import com.integrity.framework.api.bean.SsoReq;
 import com.integrity.framework.api.bean.SsoResp;
 import com.integrity.framework.api.code.ApiType;
 import com.integrity.framework.api.code.CodePath;
-import com.integrity.framework.api.code.OpBizz;
 import com.integrity.framework.api.code.FrameworkCode;
+import com.integrity.framework.api.code.OpBizz;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.exception.RespException;
 import com.integrity.framework.service.SsoService;
@@ -128,7 +128,7 @@ public abstract class BaseServiceImpl {
         try {
             // 更新请求头信息
             CodePath codePath = refreshReqCode((HeadReq) req.getHead());
-            // 登陆用户ID
+            // 登陆用户ID,
             String uidLogin = checkAuthAndRefreshToken((HeadReq) req.getHead());
             // 更新业务鉴权信息
             blogic.refreshAuthInfo(uidLogin, codePath);
@@ -231,12 +231,9 @@ public abstract class BaseServiceImpl {
 
         // 获取无需检查权限业务编码
         Map<String, CodePath> uncheckBizzCodeMap = uncheckBizzCode();
-
-        if (!DataUtils.isNullOrEmpty(uncheckBizzCodeMap) && uncheckBizzCodeMap.keySet().contains(reqHead.getCode())) {
-            // 无需鉴权业务编码集合不为空，并且包括当前编码
-            // 无需鉴权
-            return null;
-        }
+        // 需要鉴权标记(true:需要鉴权；false:不需要鉴权)
+        boolean checkAuthFlag = DataUtils.isNullOrEmpty(uncheckBizzCodeMap)
+                || !uncheckBizzCodeMap.keySet().contains(reqHead.getCode());
 
         // 获取应用类型
         ApiType.Type appType = ApiType.Type.fromCode(reqHead.getAppId());
@@ -299,27 +296,55 @@ public abstract class BaseServiceImpl {
             throw new BLogicException(FrameworkCode.Message.E_NO_AUTH_SERVICE);
         }
 
-        // 鉴权服务
-        SsoResp resp = ssoService.sso(req);
+        try {
+            // 鉴权服务
+            SsoResp resp = ssoService.sso(req);
 
-        if (DataUtils.isNullOrEmpty(resp)) {
-            // 用户鉴权失败
-            throw new BLogicException(FrameworkCode.Message.E_SYS_EXCEPTION);
+            if (DataUtils.isNullOrEmpty(resp)) {
+                if (checkAuthFlag) {
+                    // 需要鉴权
+                    // 用户鉴权失败
+                    throw new BLogicException(FrameworkCode.Message.E_SYS_EXCEPTION);
+                } else {
+                    // 无需鉴权
+                    return null;
+                }
+            }
+
+            if (!FrameworkCode.Message.OK.getCode().equals(resp.getHead().getResult())) {
+                if (checkAuthFlag) {
+                    // 需要鉴权
+                    // 鉴权逻辑失败
+                    throw new BLogicException(resp.getHead().getResult(), resp.getHead().getMsg());
+                } else {
+                    // 无需鉴权
+                    return null;
+                }
+            }
+
+            if (StringUtils.isEmpty(resp.getHead().getToken())) {
+                if (checkAuthFlag) {
+                    // 需要鉴权
+                    // 用户鉴权失败
+                    throw new BLogicException(FrameworkCode.Message.E_AUTH_USER);
+                } else {
+                    // 无需鉴权
+                    return null;
+                }
+            }
+
+            // 更新用户token
+            reqHead.setToken(resp.getHead().getToken());
+            // 返回用户ID
+            return resp.getBody().getUid();
+        } catch (RespException respEx) {
+            if (checkAuthFlag) {
+                // 需要鉴权
+                throw respEx;
+            } else {
+                // 无需鉴权
+                return null;
+            }
         }
-
-        if (!FrameworkCode.Message.OK.getCode().equals(resp.getHead().getResult())) {
-            // 鉴权逻辑失败
-            throw new BLogicException(resp.getHead().getResult(), resp.getHead().getMsg());
-        }
-
-        if (StringUtils.isEmpty(resp.getHead().getToken())) {
-            // 用户鉴权失败
-            throw new BLogicException(FrameworkCode.Message.E_AUTH_USER);
-        }
-
-        // 更新用户token
-        reqHead.setToken(resp.getHead().getToken());
-        // 返回用户ID
-        return resp.getBody().getUid();
     }
 }

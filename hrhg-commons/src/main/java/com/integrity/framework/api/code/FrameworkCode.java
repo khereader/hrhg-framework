@@ -200,6 +200,10 @@ public interface FrameworkCode {
          */
         E_NOT_FOUND("请求地址不存在！"),
         /**
+         * 属性字段参数不匹配
+         */
+        E_PARAM_NULL("请求参数为空！"),
+        /**
          * 参数格式错误
          */
         E_PARAM_FORMAT("请求参数格式错误！"),
@@ -239,6 +243,14 @@ public interface FrameworkCode {
          * 用户鉴权失败
          */
         E_AUTH_USER("用户鉴权失败！"),
+        /**
+         * 获取缓存Key失败
+         */
+        E_CACH_KEY("获取缓存Key失败！"),
+        /**
+         * 生成缓存字段失败
+         */
+        E_CACH_FEILD("生成缓存字段失败！{%s}"),
         /**
          * 系统异常
          */
