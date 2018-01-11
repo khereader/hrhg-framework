@@ -116,6 +116,19 @@ public abstract class BaseServiceImpl {
     }
 
     /**
+     * 置顶排序业务处理。<br>
+     *
+     * @param blogic 业务逻辑对象
+     * @param req    请求参数
+     * @return 响应参数
+     * @throws RespException 业务逻辑异常
+     */
+    @SuppressWarnings("unchecked")
+    protected <P extends BodyBaseReq, R extends BodyBaseResp> R sso(BaseBLogic blogic, P req) throws RespException {
+        return process(blogic, req, true);
+    }
+
+    /**
      * 业务处理。<br>
      *
      * @param blogic 业务逻辑对象
@@ -125,11 +138,33 @@ public abstract class BaseServiceImpl {
      */
     @SuppressWarnings("unchecked")
     protected <P extends BodyBaseReq, R extends BodyBaseResp> R process(BaseBLogic blogic, P req) throws RespException {
+        return process(blogic, req, false);
+    }
+
+    /**
+     * 业务处理。<br>
+     *
+     * @param blogic  业务逻辑对象
+     * @param req     请求参数
+     * @param ssoFlag 是否进行鉴权
+     * @return 响应参数
+     * @throws RespException 业务逻辑异常
+     */
+    @SuppressWarnings("unchecked")
+    protected <P extends BodyBaseReq, R extends BodyBaseResp> R process(
+            BaseBLogic blogic, P req, boolean ssoFlag) throws RespException {
         try {
             // 更新请求头信息
             CodePath codePath = refreshReqCode((HeadReq) req.getHead());
-            // 登陆用户ID,
-            String uidLogin = checkAuthAndRefreshToken((HeadReq) req.getHead());
+
+            // 登陆用户ID
+            String uidLogin = StringUtils.NULL_STRING;
+
+            if (!ssoFlag) {
+                // 进行鉴权的情况
+                uidLogin = checkAuthAndRefreshToken((HeadReq) req.getHead());
+            }
+
             // 更新业务鉴权信息
             blogic.refreshAuthInfo(uidLogin, codePath);
 
