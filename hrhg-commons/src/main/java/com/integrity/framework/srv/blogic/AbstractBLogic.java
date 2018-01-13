@@ -19,6 +19,10 @@ public abstract class AbstractBLogic<P extends Object, R extends Object> extends
      */
     public static final int FIRST_RPAGE = 1;
     /**
+     * 每页默认记录数
+     */
+    public static final int DEFAULT_COUNT_PERPAGE = 10;
+    /**
      * 每页最小记录数
      */
     public static final int MIN_COUNT_PERPAGE = 1;
