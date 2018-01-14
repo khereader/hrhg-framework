@@ -62,7 +62,7 @@ public final class DataUtils {
     /**
      * 加密类型_MD5
      */
-    public static final String DIGEST_TYPE = "MD5";
+    public static final String DIGEST_MD5 = "MD5";
     /**
      * 加密类型_SHA1
      */
@@ -218,7 +218,7 @@ public final class DataUtils {
 
         // 指定位数随机数
         Random random = new Random();
-        int num = random.nextInt((int) Math.pow(10, bit));
+        int num = Math.abs(random.nextInt((int) Math.pow(10, bit)));
         // 获取指定位数的随机数
         return makeFormatNum(num, bit);
     }
@@ -258,7 +258,7 @@ public final class DataUtils {
      */
     public static short makeShortRandom() {
         // 生成指定位数随机数字
-        return (short) new Random().nextInt();
+        return (short) Math.abs(new Random().nextInt());
     }
 
     /**
@@ -268,7 +268,7 @@ public final class DataUtils {
      */
     public static int makeIntRandom() {
         // 随机数
-        return new Random().nextInt();
+        return Math.abs(new Random().nextInt());
     }
 
     /**
@@ -278,7 +278,7 @@ public final class DataUtils {
      */
     public static long makeLongRandom() {
         // 随机数
-        return new Random().nextLong();
+        return Math.abs(new Random().nextLong());
     }
 
     /**
@@ -288,7 +288,7 @@ public final class DataUtils {
      */
     public static float makeFloatRandom() {
         // 随机数
-        return new Random().nextFloat();
+        return Math.abs(new Random().nextFloat());
     }
 
     /**
@@ -298,7 +298,7 @@ public final class DataUtils {
      */
     public static double makeDoubleRandom() {
         // 随机数
-        return new Random().nextDouble();
+        return Math.abs(new Random().nextDouble());
     }
 
     /**
@@ -390,7 +390,7 @@ public final class DataUtils {
 
         try {
             // MD5加密
-            MessageDigest messageDigest = MessageDigest.getInstance(DIGEST_TYPE);
+            MessageDigest messageDigest = MessageDigest.getInstance(DIGEST_MD5);
             // 获取字节序列
             byte[] byteMessage = messageDigest.digest(inputStr.getBytes(StringUtils.ENCODING_UTF8));
             resultStr = toHex(byteMessage);
@@ -410,7 +410,7 @@ public final class DataUtils {
      */
     public static String toMd5(InputStream is) throws Exception {
         StringBuffer md5 = new StringBuffer();
-        MessageDigest md = MessageDigest.getInstance(DIGEST_TYPE);
+        MessageDigest md = MessageDigest.getInstance(DIGEST_MD5);
         byte[] dataBytes = new byte[1024];
 
         int nread = 0;
