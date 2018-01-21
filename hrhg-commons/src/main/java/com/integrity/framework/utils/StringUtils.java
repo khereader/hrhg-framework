@@ -489,7 +489,7 @@ public final class StringUtils {
     }
 
     /**
-     * 生成单引号包围，逗号分隔的字符串。<br>
+     * 逗号分隔的字符串。<br>
      *
      * @param datas 拼接字符串参数
      * @return 逗号分隔字符串
@@ -499,7 +499,7 @@ public final class StringUtils {
     }
 
     /**
-     * 生成单引号包围，逗号分隔的字符串。<br>
+     * 生成指定字符包围，逗号分隔的字符串。<br>
      *
      * @param encircle 包围符号
      * @param datas    拼接字符串参数

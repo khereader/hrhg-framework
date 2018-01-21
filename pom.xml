@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.integrity</groupId>
     <artifactId>hrhg-framework</artifactId>
-    <version>3.1.0.50</version>
+    <version>3.1.0.60</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>好人好股框架</description>
@@ -126,8 +126,10 @@
         <easymock_version>3.4</easymock_version>
         <easymockclassextension_version>3.2</easymockclassextension_version>
         <jmockit_version>1.32</jmockit_version>
+        <aliyun_java_sdk_core_version>3.5.0</aliyun_java_sdk_core_version>
         <aliyun_sdk_oss_version>2.7.0</aliyun_sdk_oss_version>
         <aliyun_sdk_mns_version>1.1.8</aliyun_sdk_mns_version>
+        <liyun_java_sdk_dysmsapi_version>1.0.0</liyun_java_sdk_dysmsapi_version>
         <commons_codec_version>1.11</commons_codec_version>
         <bc_jdk15on_version>1.58</bc_jdk15on_version>
     </properties>
@@ -593,6 +595,12 @@
                 <artifactId>javase</artifactId>
                 <version>${zxing_version}</version>
             </dependency>
+            <!-- 阿里云Java核心开发包 -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun_java_sdk_core_version}</version>
+            </dependency>
             <!-- 阿里云OSS服务开发包 -->
             <dependency>
                 <groupId>com.aliyun.oss</groupId>
@@ -601,9 +609,9 @@
             </dependency>
             <!-- 阿里云消息服务开发包 -->
             <dependency>
-                <groupId>com.aliyun.mns</groupId>
-                <artifactId>aliyun-sdk-mns</artifactId>
-                <version>${aliyun_sdk_mns_version}</version>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+                <version>${liyun_java_sdk_dysmsapi_version}</version>
             </dependency>
             <!-- 转码工具 -->
             <dependency>

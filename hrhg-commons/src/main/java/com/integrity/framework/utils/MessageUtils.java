@@ -3,18 +3,16 @@
  */
 package com.integrity.framework.utils;
 
-import com.aliyun.mns.client.CloudAccount;
-import com.aliyun.mns.client.CloudTopic;
-import com.aliyun.mns.client.MNSClient;
-import com.aliyun.mns.model.BatchSmsAttributes;
-import com.aliyun.mns.model.MessageAttributes;
-import com.aliyun.mns.model.RawTopicMessage;
-import com.aliyun.mns.model.TopicMessage;
+import com.aliyuncs.DefaultAcsClient;
+import com.aliyuncs.IAcsClient;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.http.MethodType;
+import com.aliyuncs.profile.DefaultProfile;
+import com.aliyuncs.profile.IClientProfile;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 阿里消息服务工具。<br>
@@ -23,17 +21,69 @@ import java.util.Map;
  */
 public final class MessageUtils {
     /**
-     * 短信消息体内容
+     * 短信连接超时属性名
      */
-    public static String MESSAGE_BODY_SMS = "sms-message";
+    public static String SMS_PROPERTY_CONNECT_TIMEOUT = "sun.net.client.defaultConnectTimeout";
+    /**
+     * 短信连接超时值
+     */
+    public static String SMS_VALUE_CONNECT_TIMEOUT = "10000";
+    /**
+     * 短信读取超时属性名
+     */
+    public static String SMS_PROPERTY_READ_TIMEOUT = "sun.net.client.defaultReadTimeout";
+    /**
+     * 短信读取超时值
+     */
+    public static String SMS_VALUE_READ_TIMEOUT = "10000";
+    /**
+     * 短信API产品名称
+     */
+    public static String SMS_API_PRODUCT_NAME = "Dysmsapi";
+    /**
+     * 短信API产品域名
+     */
+    public static String SMS_API_DOMAIN = "dysmsapi.aliyuncs.com";
+    /**
+     * 短信API区域ID
+     */
+    public static String SMS_API_REGION_ID = "cn-hangzhou";
+    /**
+     * 短信API接入点
+     */
+    public static String SMS_API_END_POINT_NAME = "cn-hangzhou";
+    /**
+     * 短信API接入点
+     */
+    public static String SMS_API_RESPONSE_CODE = "OK";
 
     /**
      * 发送短信服务。<br>
      *
      * @param accessKeyId     访问ID
      * @param accessKeySecret 访问安全码
-     * @param accountEndpoint 访问目标地址
-     * @param topicName       主题名
+     * @param freeSignName    短信签名
+     * @param templateCode    短信消息模板ID
+     * @param paramBean       短信模板参数
+     * @param phones          短信发送手机号集合
+     * @return 返回消息ID
+     * @throws Exception 异常信息
+     */
+    public static String sendSMSMessage(String accessKeyId,
+                                        String accessKeySecret,
+                                        String freeSignName,
+                                        String templateCode,
+                                        Object paramBean,
+                                        List<String> phones) throws Exception {
+        return sendSMSMessage(accessKeyId, accessKeySecret, freeSignName, templateCode, paramBean,
+                DataUtils.isNullOrEmpty(phones) ? null : phones.toArray(new String[phones.size()]));
+    }
+
+    /**
+     * 发送短信服务。<br>
+     *
+     * @param accessKeyId     访问ID
+     * @param accessKeySecret 访问安全码
      * @param freeSignName    短信签名
      * @param templateCode    短信消息模板ID
      * @param paramBean       短信模板参数bean
@@ -43,19 +93,13 @@ public final class MessageUtils {
      */
     public static String sendSMSMessage(String accessKeyId,
                                         String accessKeySecret,
-                                        String accountEndpoint,
-                                        String topicName,
                                         String freeSignName,
                                         String templateCode,
                                         Object paramBean,
                                         String... phones) throws Exception {
-        // 手机号集合
-        List<String> phoneList = new ArrayList<>();
-        // 手机号非空
-        Collections.addAll(phoneList, phones);
 
-        return sendSMSMessage(accessKeyId, accessKeySecret, accountEndpoint, topicName,
-                freeSignName, templateCode, BeanUtils.beanToMap(paramBean), phoneList);
+        return sendSMSMessage(accessKeyId, accessKeySecret, freeSignName, templateCode,
+                JsonUtils.object2Json(paramBean), StringUtils.makeSingleQuotation(phones));
     }
 
     /**
@@ -63,90 +107,80 @@ public final class MessageUtils {
      *
      * @param accessKeyId     访问ID
      * @param accessKeySecret 访问安全码
-     * @param accountEndpoint 访问目标地址
-     * @param topicName       主题名
      * @param freeSignName    短信签名
      * @param templateCode    短信消息模板ID
-     * @param phones          短信发送手机号集合
-     * @param params          短信模板参数
+     * @param paramJson       短信模板参数
+     * @param phoneComma      短信发送逗号分隔手机号集合
      * @return 返回消息ID
      * @throws Exception 异常信息
      */
     public static String sendSMSMessage(String accessKeyId,
                                         String accessKeySecret,
-                                        String accountEndpoint,
-                                        String topicName,
                                         String freeSignName,
                                         String templateCode,
-                                        Map<String, Object> params,
-                                        List<String> phones) throws Exception {
+                                        String paramJson,
+                                        String phoneComma) throws Exception {
         if (StringUtils.isEmpty(accessKeyId) || StringUtils.isEmpty(accessKeySecret) ||
-                StringUtils.isEmpty(accountEndpoint) || StringUtils.isEmpty(topicName) ||
                 StringUtils.isEmpty(freeSignName) || StringUtils.isEmpty(templateCode) ||
-                DataUtils.isNullOrEmpty(phones)) {
+                StringUtils.isEmpty(paramJson) || StringUtils.isEmpty(phoneComma)) {
             // 参数检查失败
             return StringUtils.EMPTY_STRING;
         }
 
-        /**
-         * Step 1. 获取主题引用
-         */
-        CloudAccount account = new CloudAccount(accessKeyId, accessKeySecret, accountEndpoint);
-        // 获取阿里服务客户端
-        MNSClient client = account.getMNSClient();
-        // 获取主题
-        CloudTopic topic = client.getTopicRef(topicName);
-
-        /**
-         * Step 2. 设置SMS消息体（必须）
-         *
-         * 注：目前暂时不支持消息内容为空，需要指定消息内容，不为空即可。
-         */
-        RawTopicMessage msg = new RawTopicMessage();
-        msg.setMessageBody(MESSAGE_BODY_SMS);
-
-        /**
-         * Step 3. 生成SMS消息属性
-         */
-        MessageAttributes messageAttributes = new MessageAttributes();
-        BatchSmsAttributes batchSmsAttributes = new BatchSmsAttributes();
-        // 3.1 设置发送短信的签名（SMSSignName）
-        batchSmsAttributes.setFreeSignName(freeSignName);
-        // 3.2 设置发送短信使用的模板（SMSTempateCode）
-        batchSmsAttributes.setTemplateCode(templateCode);
-
-        // 3.3 设置发送短信所使用的模板中参数对应的值（在短信模板中定义的，没有可以不用设置）
-        BatchSmsAttributes.SmsReceiverParams smsReceiverParams = new BatchSmsAttributes.SmsReceiverParams();
-
-        if (!DataUtils.isNullOrEmpty(params)) {
-            // 消息模版参数
-            for (String key : params.keySet()) {
-                // 逐个设置参数
-                Object value = params.get(key);
-                // 设置参数
-                smsReceiverParams.setParam(key, null == value ? null : value.toString());
-            }
-        }
-
-        for (String phone : phones) {
-            // 3.4 增加接收短信的号码
-            batchSmsAttributes.addSmsReceiver(phone, smsReceiverParams);
-        }
-
-        // 设置批量发送消息对象
-        messageAttributes.setBatchSmsAttributes(batchSmsAttributes);
+        // 业务编码
+        String bizCode = StringUtils.NULL_STRING;
 
         try {
-            /**
-             * Step 4. 发布SMS消息
-             */
-            TopicMessage ret = topic.publishMessage(msg, messageAttributes);
-            // 返回消息ID
-            return ret.getMessageId();
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            client.close();
+            // 设置超时时间
+            // 连接超时时间
+            System.setProperty(SMS_PROPERTY_CONNECT_TIMEOUT, SMS_VALUE_CONNECT_TIMEOUT);
+            // 读取超时时间
+            System.setProperty(SMS_PROPERTY_READ_TIMEOUT, SMS_VALUE_READ_TIMEOUT);
+            // 初始化ascClient需要的几个参数
+            // 短信API产品名称（短信产品名固定，无需修改）
+            final String product = SMS_API_PRODUCT_NAME;
+            // 短信API产品域名（接口地址固定，无需修改）
+            final String domain = SMS_API_DOMAIN;
+
+            // 初始化ascClient,暂时不支持多region（请勿修改）
+            IClientProfile profile = DefaultProfile.getProfile(SMS_API_REGION_ID, accessKeyId, accessKeySecret);
+            DefaultProfile.addEndpoint(SMS_API_END_POINT_NAME, SMS_API_REGION_ID, product, domain);
+            IAcsClient acsClient = new DefaultAcsClient(profile);
+            // 组装请求对象
+            SendSmsRequest request = new SendSmsRequest();
+            // 使用post提交
+            request.setMethod(MethodType.POST);
+            // 必填:待发送手机号。
+            // 支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,
+            // 批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式
+            request.setPhoneNumbers(phoneComma);
+            // 必填:短信签名-可在短信控制台中找到
+            request.setSignName(freeSignName);
+            // 必填:短信模板-可在短信控制台中找到
+            request.setTemplateCode(templateCode);
+            // 可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
+            // 友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况
+            // 在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
+            request.setTemplateParam(paramJson);
+            // 可选-上行短信扩展码(扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段)
+            // request.setSmsUpExtendCode("90997");
+            // 可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
+            String outId = String.valueOf(DateUtils.getTimeStamp());
+            request.setOutId(outId);
+            // 请求失败这里会抛ClientException异常
+            SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+
+            if (!DataUtils.isNullOrEmpty(sendSmsResponse.getCode()) &&
+                    StringUtils.isEquals(sendSmsResponse.getCode(), SMS_API_RESPONSE_CODE)) {
+                return sendSmsResponse.getBizId();
+            }
+
+            return sendSmsResponse.getBizId();
+        } catch (ClientException ce) {
+            // 忽略异常处理逻辑
+            return bizCode;
         }
     }
 }
+
+
