@@ -36,6 +36,10 @@ public final class StringUtils {
     /**
      * 逗号字符串
      */
+    public static final String SINGLE_QUOTATION_STRING = "'";
+    /**
+     * 逗号字符串
+     */
     public static final String COMMA_STRING = ",";
     /**
      * 点号字符串
@@ -491,6 +495,17 @@ public final class StringUtils {
      * @return 逗号分隔字符串
      */
     public static String makeSingleQuotation(String... datas) {
+        return makeSingleQuotation(NULL_STRING, datas);
+    }
+
+    /**
+     * 生成单引号包围，逗号分隔的字符串。<br>
+     *
+     * @param encircle 包围符号
+     * @param datas    拼接字符串参数
+     * @return 逗号分隔字符串
+     */
+    public static String makeSingleQuotation(String encircle, String... datas) {
         if (null == datas || 0 == datas.length) {
             // 没有数据参数
             return EMPTY_STRING;
@@ -511,7 +526,15 @@ public final class StringUtils {
             }
 
             // 添加当前字符串
-            sb.append(data);
+            if (isEmpty(encircle)) {
+                // 原始字符串
+                sb.append(data);
+            } else {
+                // 包围字符串
+                sb.append(encircle);
+                sb.append(data);
+                sb.append(encircle);
+            }
         }
 
         return sb.toString();
