@@ -10,6 +10,8 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.integrity.framework.api.code.FrameworkCode;
+import com.integrity.framework.exception.BLogicException;
 
 import java.util.List;
 
@@ -167,12 +169,18 @@ public final class MessageUtils {
         // 请求失败这里会抛ClientException异常
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
 
-        if (!DataUtils.isNullOrEmpty(sendSmsResponse.getCode()) &&
-                StringUtils.isEquals(sendSmsResponse.getCode(), SMS_API_RESPONSE_CODE)) {
-            return sendSmsResponse.getBizId();
+        if (DataUtils.isNullOrEmpty(sendSmsResponse)) {
+            // 响应消息为空
+            throw new BLogicException(FrameworkCode.Message.E_SYS_EXCEPTION);
         }
 
-        return sendSmsResponse.getBizId();
+        if (StringUtils.isEquals(sendSmsResponse.getCode(), SMS_API_RESPONSE_CODE)) {
+            // 响应成功
+            return sendSmsResponse.getBizId();
+        } else {
+            // 响应失败的情况
+            throw new Exception(sendSmsResponse.getCode() + sendSmsResponse.getMessage());
+        }
     }
 }
 
