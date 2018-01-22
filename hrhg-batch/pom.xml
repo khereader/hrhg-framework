@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.integrity</groupId>
         <artifactId>hrhg-framework</artifactId>
-        <version>3.1.0.70</version>
+        <version>3.1.0.71</version>
     </parent>
     <artifactId>hrhg-batch</artifactId>
     <name>${project.artifactId}</name>
