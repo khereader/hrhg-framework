@@ -86,19 +86,22 @@ public abstract class SimpleGetCacheBLogic<P extends BodyReq, R extends BodyResp
             throw new BLogicException(e, FrameworkCode.Message.E_SYS_EXCEPTION);
         }
 
-        if (DataUtils.isNullOrEmpty(resp)) {
-            // 缓存中的配置参数不存在
-            // 访问者信息
-            this.bizzBLogic.setUidLogin(this.uidLogin);
-            // 持久层获取文章详细内容
-            resp = this.bizzBLogic.execute(param);
+        if (!DataUtils.isNullOrEmpty(resp)) {
+            // 存在缓存响应结果
+            return resp;
+        }
 
-            try {
-                // 缓存中 设置系统参数信息
-                RedisUtils.hsetJson(redisDataSource, redisKey, field, resp);
-            } catch (Exception e) {
-                throw new BLogicException(e, FrameworkCode.Message.E_SYS_EXCEPTION);
-            }
+        // 缓存中的配置参数不存在
+        // 访问者信息
+        this.bizzBLogic.setUidLogin(this.uidLogin);
+        // 持久层获取文章详细内容
+        resp = this.bizzBLogic.execute(param);
+
+        try {
+            // 缓存中 设置系统参数信息
+            RedisUtils.hsetJson(redisDataSource, redisKey, field, resp, expire());
+        } catch (Exception e) {
+            throw new BLogicException(e, FrameworkCode.Message.E_SYS_EXCEPTION);
         }
 
         return resp;
@@ -110,6 +113,15 @@ public abstract class SimpleGetCacheBLogic<P extends BodyReq, R extends BodyResp
      * @return 缓存Key
      */
     protected abstract String cachekey();
+
+    /**
+     * 获取缓存key超时时间。<br>
+     *
+     * @return 超时时间(默认2个小时)
+     */
+    protected long expire() {
+        return RedisUtils.DEFAULT_EXPIRE_HOUR_TWO;
+    }
 
     /**
      * 更新鉴权信息。<br>
