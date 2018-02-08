@@ -1,5 +1,5 @@
 /**
- * 获取缓存业务逻辑。<br>
+ * 获取缓存哈希业务逻辑。<br>
  */
 package com.integrity.framework.srv.blogic;
 

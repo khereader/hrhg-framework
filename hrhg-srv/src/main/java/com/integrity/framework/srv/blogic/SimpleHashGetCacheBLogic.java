@@ -1,49 +1,29 @@
 /**
- * 获取缓存业务逻辑。<br>
+ * 获取缓存哈希业务逻辑。<br>
  */
 package com.integrity.framework.srv.blogic;
 
 import com.integrity.framework.api.bean.BodyReq;
 import com.integrity.framework.api.bean.BodyResp;
-import com.integrity.framework.api.code.CodePath;
 import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.exception.BLogicException;
-import com.integrity.framework.redis.RedisDataSource;
 import com.integrity.framework.utils.DataUtils;
 import com.integrity.framework.utils.RedisUtils;
 import com.integrity.framework.utils.SignUtils;
 import com.integrity.framework.utils.StringUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.annotation.Resource;
 
 /**
- * 获取缓存业务逻辑。<br>
+ * 获取缓存哈希业务逻辑。<br>
  *
  * @author 李海军
  * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public abstract class SimpleGetCacheBLogic<P extends BodyReq, R extends BodyResp, T extends SimplePageBLogic<P, R>>
-        extends AbstractBaseBLogic<P, R> implements SimpleWithAuthBLogic<P, R> {
-    /**
-     * 登录用户ID
-     */
-    protected String uidLogin;
-    /**
-     * Redis数据源
-     */
-    @Resource
-    private RedisDataSource redisDataSource;
-    /**
-     * 具体业务处理业务逻辑（按照类型注入）
-     */
-    @Autowired
-    protected T bizzBLogic;
-
+public abstract class SimpleHashGetCacheBLogic<P extends BodyReq, R extends BodyResp, T extends SimplePageBLogic<P, R>>
+        extends SimpleBaseCacheBLogic<P, R, T> {
     /**
      * 业务执行接口。<br>
      *
@@ -105,32 +85,5 @@ public abstract class SimpleGetCacheBLogic<P extends BodyReq, R extends BodyResp
         }
 
         return resp;
-    }
-
-    /**
-     * 获取缓存Key。<br>
-     *
-     * @return 缓存Key
-     */
-    protected abstract String cachekey();
-
-    /**
-     * 获取缓存key超时时间。<br>
-     *
-     * @return 超时时间(默认2个小时)
-     */
-    protected long expire() {
-        return RedisUtils.DEFAULT_EXPIRE_HOUR_TWO;
-    }
-
-    /**
-     * 更新鉴权信息。<br>
-     *
-     * @param uid      用户ID
-     * @param codePath 编码路径
-     */
-    @Override
-    public void refreshAuthInfo(String uid, CodePath codePath) {
-        this.uidLogin = uid;
     }
 }
