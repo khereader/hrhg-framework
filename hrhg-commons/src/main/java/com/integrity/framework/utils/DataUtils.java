@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * 数据工具。<br>
@@ -197,6 +198,15 @@ public final class DataUtils {
     }
 
     /**
+     * 生成32位长度的UUI字符串。<br>
+     *
+     * @return 32位字符串
+     */
+    public static String makeRandomUUID() {
+        return UUID.randomUUID().toString().replaceAll(StringUtils.LINE_STRING, StringUtils.NULL_STRING);
+    }
+
+    /**
      * 生成默认4位长度的随机数字符串。<br>
      *
      * @return 随机字符串
@@ -374,7 +384,7 @@ public final class DataUtils {
         }
 
         // 生成MD5加密字符串ID
-        return toMd5(builder.toString());
+        return DataUtils.toMd5(builder.toString());
     }
 
     /**
