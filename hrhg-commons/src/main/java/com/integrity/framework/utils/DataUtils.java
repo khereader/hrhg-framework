@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -672,5 +673,67 @@ public final class DataUtils {
         keyValueObj.setKey(encryCode);
 
         return encryPwd;
+    }
+
+    /**
+     * 生成对象集合key列表。<br>
+     *
+     * @param list     对象集合
+     * @param keyField key字段名
+     * @param <T>      类型
+     * @return keys列表结合
+     * @throws Exception 系统异常
+     */
+    public static <T extends Object> List<String> makeKeyList(List<T> list, String keyField) throws Exception {
+        if (isNullOrEmpty(list)) {
+            // 列表或对象为空
+            return null;
+        }
+
+        // ID集合
+        List<String> ids = new ArrayList<>();
+
+        for (T obj : list) {
+            if (isNullOrEmpty(obj)) {
+                // 对象为空的情况
+                continue;
+            }
+
+            // 获取ID值
+            ids.add((String) BeanUtils.getValueByPropertyName(obj, keyField));
+        }
+
+        return ids;
+    }
+
+    /**
+     * 生成对象集合key-value结合。<br>
+     *
+     * @param list     对象集合
+     * @param keyField key字段名
+     * @param <T>      类型
+     * @return keys列表结合
+     * @throws Exception 系统异常
+     */
+    public static <T extends Object> Map<String, T> makeKeyObjectMap(List<T> list, String keyField) throws Exception {
+        if (isNullOrEmpty(list)) {
+            // 列表或对象为空
+            return null;
+        }
+
+        // key-value集合
+        Map<String, T> maps = new HashMap<>();
+
+        for (T obj : list) {
+            if (isNullOrEmpty(obj)) {
+                // 对象为空的情况
+                continue;
+            }
+
+            // 获取ID值
+            maps.put((String) BeanUtils.getValueByPropertyName(obj, keyField), obj);
+        }
+
+        return maps;
     }
 }
