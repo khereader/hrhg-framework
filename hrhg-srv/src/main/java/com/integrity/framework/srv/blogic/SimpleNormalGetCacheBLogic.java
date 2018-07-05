@@ -5,10 +5,12 @@ package com.integrity.framework.srv.blogic;
 
 import com.integrity.framework.api.bean.BodyReq;
 import com.integrity.framework.api.bean.BodyResp;
+import com.integrity.framework.api.code.CodeType;
 import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.exception.BLogicException;
 import com.integrity.framework.utils.DataUtils;
 import com.integrity.framework.utils.RedisUtils;
+import com.integrity.framework.utils.SignUtils;
 import com.integrity.framework.utils.StringUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,6 +40,21 @@ public abstract class SimpleNormalGetCacheBLogic<P extends BodyReq, R extends Bo
         if (StringUtils.isEmpty(redisKey)) {
             // 缓存Key信息为空
             throw new BLogicException(FrameworkCode.Message.E_CACH_KEY);
+        }
+
+        // 检查条件
+        String field;
+
+        try {
+            field = SignUtils.makeBeanSign(param, redisKey);
+        } catch (Exception e) {
+            // 获取字段异常时
+            throw new BLogicException(e, FrameworkCode.Message.E_CACH_FEILD);
+        }
+
+        if (StringUtils.isNotEmpty(field)) {
+            // 字段非空
+            redisKey = redisKey + CodeType.SEPARATOR_COLON + field;
         }
 
         // 系统参数响应参数
