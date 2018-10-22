@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.integrity</groupId>
         <artifactId>hrhg-framework</artifactId>
-        <version>4.0.0.1</version>
+        <version>4.0.0.0</version>
     </parent>
     <artifactId>hrhg-commons</artifactId>
     <name>${project.artifactId}</name>
