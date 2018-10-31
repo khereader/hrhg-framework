@@ -32,9 +32,7 @@ public abstract class TraceFilter implements ContainerRequestFilter, ContainerRe
     /**
      * 请求头VALUE--允许服务器HOST(任何主机)
      */
-    public static final String HEADER_VALUE_ALLOW_ORIGIN =
-            "http://hrhg.integrity.com.cn,https://hrhg.integrity.com.cn," +
-                    "http://portal.integrity.com.cn,https://portal.integrity.com.cn";
+    public static final String HEADER_VALUE_ALLOW_ORIGIN = "*";
     /**
      * 请求头KEY--允许请求头信息
      */
