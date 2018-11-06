@@ -3,6 +3,7 @@
  */
 package com.integrity.framework.ext.filter;
 
+import com.integrity.framework.api.bean.BodyBaseResp;
 import com.integrity.framework.api.code.FrameworkCode;
 import com.integrity.framework.utils.LogUtils;
 import org.slf4j.Logger;
@@ -100,10 +101,12 @@ public abstract class TraceFilter implements ContainerRequestFilter, ContainerRe
         // 获取body数据类型
         Class<?> clazz = containerResponseContext.getEntityClass();
 
-        if (null != clazz) {
+        if (null != clazz && BodyBaseResp.class.isAssignableFrom(clazz)) {
             // 有响应数据时，添加响应头允许信息
             // 自定义业务类型条件
-            // BodyBaseResp.class.isAssignableFrom(clazz)
+            containerResponseContext.getHeaders().add(HEADER_KEY_ALLOW_ORIGIN, whiteHost());
+        } else {
+            // 其他所有条件
             containerResponseContext.getHeaders().add(HEADER_KEY_ALLOW_ORIGIN, whiteHost());
         }
     }
