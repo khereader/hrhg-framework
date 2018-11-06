@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.integrity</groupId>
     <artifactId>hrhg-framework</artifactId>
-    <version>4.0.0.3</version>
+    <version>4.0.1.0</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <description>好人好股框架</description>
