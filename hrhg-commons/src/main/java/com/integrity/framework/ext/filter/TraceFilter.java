@@ -17,6 +17,8 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 跟踪过滤器。<br>
@@ -109,6 +111,11 @@ public abstract class TraceFilter implements ContainerRequestFilter, ContainerRe
                 containerResponseContext.getHeaders().add(HEADER_KEY_ALLOW_ORIGIN, whiteHost());
             } else if (BaseSimpleRest.class.isAssignableFrom(clazz)) {
                 // 自定义简单业务类型条件
+                containerResponseContext.getHeaders().add(HEADER_KEY_ALLOW_ORIGIN, whiteHost());
+            } else if (String.class.isAssignableFrom(clazz) ||
+                    List.class.isAssignableFrom(clazz) ||
+                    Map.class.isAssignableFrom(clazz)) {
+                // 简单字符串和集合类型条件
                 containerResponseContext.getHeaders().add(HEADER_KEY_ALLOW_ORIGIN, whiteHost());
             }
         }
