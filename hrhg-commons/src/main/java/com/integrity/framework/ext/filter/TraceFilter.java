@@ -112,8 +112,7 @@ public abstract class TraceFilter implements ContainerRequestFilter, ContainerRe
             } else if (BaseSimpleRest.class.isAssignableFrom(clazz)) {
                 // 自定义简单业务类型条件
                 containerResponseContext.getHeaders().add(HEADER_KEY_ALLOW_ORIGIN, whiteHost());
-            } else if (String.class.isAssignableFrom(clazz) ||
-                    List.class.isAssignableFrom(clazz) ||
+            } else if (List.class.isAssignableFrom(clazz) ||
                     Map.class.isAssignableFrom(clazz)) {
                 // 简单字符串和集合类型条件
                 containerResponseContext.getHeaders().add(HEADER_KEY_ALLOW_ORIGIN, whiteHost());
