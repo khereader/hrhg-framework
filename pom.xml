@@ -103,7 +103,7 @@
         <httpclient_version>4.5.3</httpclient_version>
         <!-- 数据库管理库 -->
         <!-- MySQL连接驱动库 -->
-        <mysqlconnector_version>6.0.6</mysqlconnector_version>
+        <mysqlconnector_version>8.0.16</mysqlconnector_version>
         <!-- 数据库连接池管理库 -->
         <druid_version>1.0.31</druid_version>
         <!-- 动态代理库 -->
