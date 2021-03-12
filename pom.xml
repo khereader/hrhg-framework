@@ -78,7 +78,7 @@
         <zkclient_version>0.10</zkclient_version>
         <!-- Apache核心组件库 -->
         <minacore_version>2.0.16</minacore_version>
-        <libthrift_version>0.10.0</libthrift_version>
+        <libthrift_version>0.14.0</libthrift_version>
         <bsfapi_version>3.1</bsfapi_version>
         <cxf_version>3.1.11</cxf_version>
         <!-- 内存优化管理框架库 -->
