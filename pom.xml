@@ -71,7 +71,7 @@
         <quartz_version>2.3.0</quartz_version>
         <!-- 服务器容器 -->
         <netty_version>3.10.6.Final</netty_version>
-        <tomcatembed_version>8.5.15</tomcatembed_version>
+        <tomcatembed_version>8.5.61</tomcatembed_version>
         <tomcatembed_logging_juli_version>8.5.2</tomcatembed_logging_juli_version>
         <!-- ZK注册中心 -->
         <zookeeper_version>3.4.10</zookeeper_version>
