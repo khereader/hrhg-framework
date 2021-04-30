@@ -66,7 +66,7 @@
         <logback_version>1.2.3</logback_version>
         <logback_ext_spring_version>0.1.4</logback_ext_spring_version>
         <!-- SPRING框架 -->
-        <spring_bom_version>4.3.9.RELEASE</spring_bom_version>
+        <spring_bom_version>4.3.29.RELEASE</spring_bom_version>
         <!-- 定时任务管理工具库 -->
         <quartz_version>2.3.0</quartz_version>
         <!-- 服务器容器 -->
