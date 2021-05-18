@@ -90,7 +90,7 @@
         <!-- hessian原生序列化 -->
         <hessian_version>4.0.7</hessian_version>
         <!-- XML序列化 -->
-        <xstream_version>1.4.10</xstream_version>
+        <xstream_version>1.4.17</xstream_version>
         <resteasy_version>3.1.4.Final</resteasy_version>
         <!-- Json解析工具库 -->
         <jackson_version>2.8.8</jackson_version>
