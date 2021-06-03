@@ -100,7 +100,7 @@
         <!-- HTTP组件核心库 -->
         <httpcore_version>4.4.6</httpcore_version>
         <!-- HTTP组件客户端库 -->
-        <httpclient_version>4.5.3</httpclient_version>
+        <httpclient_version>4.5.13</httpclient_version>
         <!-- 数据库管理库 -->
         <!-- MySQL连接驱动库 -->
         <mysqlconnector_version>6.0.6</mysqlconnector_version>
