@@ -131,7 +131,7 @@
         <aliyun_sdk_mns_version>1.1.8</aliyun_sdk_mns_version>
         <liyun_java_sdk_dysmsapi_version>1.0.0</liyun_java_sdk_dysmsapi_version>
         <commons_codec_version>1.11</commons_codec_version>
-        <bc_jdk15on_version>1.58</bc_jdk15on_version>
+        <bc_jdk15on_version>1.67</bc_jdk15on_version>
     </properties>
 
     <!-- 私服访问定义 -->
