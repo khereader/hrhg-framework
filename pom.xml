@@ -77,7 +77,7 @@
         <zookeeper_version>3.4.10</zookeeper_version>
         <zkclient_version>0.10</zkclient_version>
         <!-- Apache核心组件库 -->
-        <minacore_version>2.0.16</minacore_version>
+        <minacore_version>2.1.5</minacore_version>
         <libthrift_version>0.10.0</libthrift_version>
         <bsfapi_version>3.1</bsfapi_version>
         <cxf_version>3.1.11</cxf_version>
